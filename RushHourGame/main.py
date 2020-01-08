@@ -12,7 +12,6 @@ class RushHour(object):
     def __init__ (self):
         # size = game
         # board = Board(size)
-        cars = self.get_cars()
         pass
 
     def get_cars(self):
@@ -29,8 +28,18 @@ class RushHour(object):
         #TODO
         pass
 
-    def move(self, carname, direction, steps):
-        #TODO
+    def move(self, carname, direction):
+        name = carname
+        direction = direction
+        steps = 1
+        for car in self.cars:
+            if car.name == name:
+                cur_car = car
+        
+        if car.orientation == 'H':
+            cur_car.x + steps
+        else:
+            cur_car.y + steps
         pass
     
     
@@ -49,30 +58,31 @@ if __name__ == "__main__":
     for car, orientation, x, y, length in reader:
         car = Car(car, orientation, x, y ,length)
         cars.append(car)
+        redcar = car
     board = Board(3)
     name = None
-    for i in range(board.size + 2):
-        for j in range(board.size + 2):
-            if i == 0 or i == board.size + 1:
-                print("-", end=" ")
-            elif j == board.size + 1 and i == math.ceil(board.size / 2):
-                print(">", end=" ")
-            elif j == 0 or j == board.size + 1:
-                print("|", end=" ")
-            elif i < board.size + 1 or j < board.size + 1:
-                for car in cars:
-                    if car.x == j and car.y == i:
-                        name = car.name
-                    if  name != None:
-                        print(car.orientation == 'H')
-                        print(car.orientation)
-                        if car.orientation == 'H':
-                            print(car.length * car.name, end=" ")
-                        name = None
-                        break
-                else:
-                    print (".", end=" ")
-        print("")
+    for k in range (3):
+        for i in range(board.size + 2):
+            for j in range(board.size + 2):
+                if i == 0 or i == board.size + 1:
+                    print("-", end=" ")
+                elif j == board.size + 1 and i == math.ceil(board.size / 2):
+                    print(">", end=" ")
+                elif j == 0 or j == board.size + 1:
+                    print("|", end=" ")
+                elif i < board.size + 1 or j < board.size + 1:
+                    for car in cars:
+                        if car.x == j and car.y == i:
+                            name = car.name
+                        if  name != None:
+                            print(name, end=" ")
+                            name = None
+                            break
+                        else:
+                            print (".", end=" ")
+            print("")
+        redcar.x += 1
+
     
 
 
