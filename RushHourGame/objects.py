@@ -26,6 +26,7 @@ class Board(object):
     # Initializes a board object 
     def __init__(self, size):
         # Board properties
+        self.size = size
         self.grid = []
           
         for i in range(size):
@@ -42,6 +43,7 @@ class Board(object):
     
     def __str__(self):
         return f"{self.grid}"
+
     
             
         
