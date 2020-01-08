@@ -6,16 +6,16 @@ class Car(object):
     """
 
     # Initializes a car object. 
-    def __init__ (self, name, orientation, length, x, y):
+    def __init__ (self, name, orientation, x, y, length):
         # Car properties
         self.name = name
         self.orientation = orientation
         self.length = length
-        self.x = x 
-        self.y = y 
+        self.x = int(x.replace('"', ''))
+        self.y = int(y.replace('"', ''))
         
     def __str__(self):
-        return f"{self.name} {self.orientation} {self.length} {self.x} {self.y}"
+        return f"{self.name} {self.orientation} {self.length} coords: {self.x},  {self.y}"
         
         
 class Board(object):
@@ -27,7 +27,6 @@ class Board(object):
     def __init__(self, size):
         # Board properties
         self.grid = []
-        self.cars = []
           
         for i in range(size):
             coordsY = i + 1
@@ -42,7 +41,7 @@ class Board(object):
             self.grid.append(X_axis)
     
     def __str__(self):
-        return f"{self.grid} with {self.cars}"
+        return f"{self.grid}"
     
             
         
