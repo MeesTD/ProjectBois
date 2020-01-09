@@ -15,17 +15,13 @@ class Board(object):
     # Initializes a board object 
     def __init__(self, input_file):
         # Board properties
-        self.size = load_grid(input_file)
+        self.size = self.load_grid(input_file)
         self.grid = []
         # self.win_location = ...
-        
-        # Loads the bord
-        loadgrid("infile")
-        
-        for i in range(size):
+        for i in range(self.size):
             coordsY = i + 1
             X_axis = []
-            for j in range(size):
+            for j in range(self.size):
                 
                 coordsX = j + 1
                 
@@ -41,28 +37,17 @@ class Board(object):
         """
         Function that reads the title of the CSV file and retreives the board size
         """
-        
         size = 0
         
-        # Retreives all the filenames in de data folder
-        for filename in os.listdir("/code/data"):
-            # Double checks if file is a board
-            if filename.endswith(".csv"):
-                # Checks if appropriate size is in filename
-                if char in filename == "6":
-                    size = 6
-                elif char in filename  == "9":
-                    size = 9
-                else:
-                    size = 12
-                        
-                return size
-            
-            return "Cant't find board with given input, please try again!"
-                    
-                
-              
-             
-        
-        
-        
+        # Checks if appropriate size is in filename (Kan dynamischer?)
+        if "3x3" in input_file:
+            size = 3
+        elif "6x6" in input_file:
+            size = 6
+        elif "9x9" in input_file:
+            size = 9
+        elif "12x12" in input_file:
+            size = 12
+        else:   
+            return ("Cant't find board with given input, please try again!")
+        return size

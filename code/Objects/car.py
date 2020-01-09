@@ -28,5 +28,5 @@ class Car(object):
         else:
             name.y += steps
 
-    def __str__(self):
+    def __repr__(self):
         return f"{self.name} {self.orientation} {self.length} coords: {self.x},  {self.y}"
