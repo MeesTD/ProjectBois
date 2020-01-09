@@ -28,7 +28,7 @@ class RushHour():
             # loop over the cars and check their coords
             for car in self.cars:
                 if self.cars[car].get_orientation:
-                    if self.cars[car].x1 or self.cars[car].x2 == self.current_car.length + i
+                    if self.cars[car].x1 or self.cars[car].x2 == 
                         
                     if self.cars[car].length == 3:
                         self.cars[car].x3 != 
