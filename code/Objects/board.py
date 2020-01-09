@@ -6,6 +6,7 @@
 # UITLEG
 ###################################################################################################
 import os
+import math
 
 class Board(object):
     """
@@ -17,7 +18,7 @@ class Board(object):
         # Board properties
         self.size = self.load_grid(input_file)
         self.grid = []
-        # self.win_location = ...
+        self.win_location = self.set_winlocation
         for i in range(self.size):
             coordsY = i + 1
             X_axis = []
@@ -51,3 +52,7 @@ class Board(object):
         else:   
             return ("Cant't find board with given input, please try again!")
         return size
+
+    def set_winlocation(self, size):
+        win = math.ceil(size / 2)
+        return win
