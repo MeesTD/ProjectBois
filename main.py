@@ -15,7 +15,7 @@ if __name__ == "__main__":
                 print("-", end="")
             elif j == board.size + 1 and i == math.ceil(board.size / 2):
                 print(">", end="")
-            elif i == 0 or j == board.size + 1:
+            elif j == 0 or j == board.size + 1:
                 print("|", end="")
             elif j < board.size + 1 or j < board.size + 1:
                 for car in game.cars:
