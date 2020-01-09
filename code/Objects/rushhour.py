@@ -30,15 +30,15 @@ class RushHour():
         direction = direction
         steps = steps
         for car in self.cars:
-            if car.name == name:
-                self.current_car = car
-        if car.get_orientation() == True:
+            if self.cars[car].name == name:
+                self.current_car = self.cars[car]
+        if self.current_car.get_orientation() == True:
             if direction == "L":
                 steps = steps * -1
-                car.set_coords(car.name, steps)
+                self.current_car.set_coords(steps)
                 return True 
             elif direction == "R":
-                car.set_coords(car.name, steps)
+                self.current_car.set_coords(steps)
                 return True 
             else:
                 print("Not a valid direction!")
@@ -46,10 +46,10 @@ class RushHour():
 
         if direction == "U":
             steps = steps * -1
-            car.set_coords(car.name, steps)
+            car.set_coords(steps)
             return True 
         elif direction == "D":
-            car.set_coords(car.name, steps)
+            car.set_coords(steps)
             return True 
         else:
             print("Not a valid direction!")
