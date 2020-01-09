@@ -15,14 +15,17 @@ class Car(object):
         self.y = int(y.replace('"', ''))
 
     def get_orientation(self):
+        """ This method checks the orientation of the car, whether it's horizontal or vertical"""
         if self.orientation == " H":
             return True
         return False
 
     def get_coords(self, name):
+        """ This method gets the location of the car that is selected"""
         return name.x and name.y
 
     def set_coords(self, name, steps):
+        """ This method changes the coördinates for the selected car"""
         if  name.get_orientation:
             name.x += steps
         else:
