@@ -36,7 +36,7 @@ class RushHour(object):
             if car.name == name:
                 cur_car = car
         
-        if car.orientation == 'H':
+        if car.orientation == ' H':
             cur_car.x + steps
         else:
             cur_car.y + steps
