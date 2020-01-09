@@ -23,6 +23,23 @@ class RushHour():
                 cars[row['car']] = Car(row['car'], row[' orientation'], row[' "x'], row['y"'], row[' length'])
         return cars
 
+    def check_route(self, car, steps):
+        for i in range(steps + 1):
+            # loop over the cars and check their coords
+            for car in self.cars:
+                if self.cars[car].get_orientation:
+                    if self.cars[car].x1 or self.cars[car].x2 == self.current_car.length + i
+                        
+                    if self.cars[car].length == 3:
+                        self.cars[car].x3 != 
+
+                if not self.cars[car].get_orientation:
+                    if self.cars[car].y1 ==  or self.cars[car].y2
+
+                    if self.cars[car].length == 3:
+                        self.cars[car].y3 != 
+        pass
+
     # This method allows a car to move and returns True if the move is possible
     # Otherwise it returns false.
     def move(self, carname, direction, steps):
@@ -32,27 +49,31 @@ class RushHour():
         for car in self.cars:
             if self.cars[car].name == name:
                 self.current_car = self.cars[car]
-        if self.current_car.get_orientation() == True:
-            if direction == "L":
+        if self.check_route(self.current_car, steps):
+            if self.current_car.get_orientation() == True:
+                if direction == "L":
+                    steps = steps * -1
+                    self.current_car.set_coords(steps)
+                    return True 
+                elif direction == "R":
+                    self.current_car.set_coords(steps)
+                    return True 
+                else:
+                    print("Not a valid direction!")
+                    return False
+
+            if direction == "U":
                 steps = steps * -1
-                self.current_car.set_coords(steps)
+                car.set_coords(steps)
                 return True 
-            elif direction == "R":
-                self.current_car.set_coords(steps)
+            elif direction == "D":
+                car.set_coords(steps)
                 return True 
             else:
                 print("Not a valid direction!")
                 return False
-
-        if direction == "U":
-            steps = steps * -1
-            car.set_coords(steps)
-            return True 
-        elif direction == "D":
-            car.set_coords(steps)
-            return True 
         else:
-            print("Not a valid direction!")
+            print ("A car is in the way!")
             return False
     
     def choose_car(self, name):
