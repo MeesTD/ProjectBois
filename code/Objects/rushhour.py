@@ -1,35 +1,58 @@
-class RushHour(object):
+from Objects import Board, Car
+import csv
+
+class RushHour():
     """
     This class holds all information relevant to the current game of Rush Hour.
     Including the board (grid) and its cars.
     """
 
-    def __init__ (self):
+    def __init__ (self, in_file):
         # size = game
-        # board = Board(size)
-        pass
+        board = Board(in_file)
+        self.cars = load_cards(in_file)
+        self.current_car = None
 
-    def load_cars(self):
-        self.cars = []
-        f = open("test3x3.csv")
-        reader = csv.reader(f)
-        next(reader)
-        for car, orientation, x, y, length in reader:
-            car = Car(car, orientation, x, y ,length)
-            self.cars.append(car)
-        return(f"{self.cars}")
+    def load_cars(self, in_file):
+        cars = {}
+        with open(in_file, 'r') as reader:
+            reader = csv.DictReader(infile)
+            for row in reader:
+                cars[row['name']] = Car(row['orientation'], row['x'], row['y'], row['length'])
+            return cars
 
-    def load_cars(self):
-        #TODO
-        pass
-
-    def move(self, carname, direction):
+    # This method allows a car to move and returns True if the move is possible
+    # Otherwise it returns false.
+    def move(self, carname, direction, steps):
         name = carname
         direction = direction
-        steps = 1
+        steps = steps
         for car in self.cars:
             if car.name == name:
-                cur_car = car
-        
-        
+                self.current_car = car
+        if car.get_orientation() == True:
+            if direction == "L":
+                steps = steps * -1
+                car.set_coords(car.name, steps)
+                return True 
+            elif direction == "R":
+                car.set_coords(car.name, steps)
+                return True 
+            else:
+                print("Not a valid direction!")
+                return False
+
+        if direction == "U":
+            steps = steps * -1
+            car.set_coords(car.name, steps)
+            return True 
+        elif direction == "D":
+            car.set_coords(car.name, steps)
+            return True 
+        else:
+            print("Not a valid direction!")
+            return False
+    
+    def choose_car(self, name):
+
     
