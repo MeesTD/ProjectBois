@@ -1,5 +1,4 @@
 Maandag 6 januari:
-
 Wij hebben met zijn drieeën gekeken naar de case. Een kleine design doc + Powerpoint presentatie gemaakt om voor onszelf wat meer duidelijkheid te creeëren over wat we precies willen doen. Door de design doc konden we het probleem in kleinere problemen opdelen die wij op moesten lossen. Zoals: 
 * We moeten een bord simuleren. : Dit gaan we doen met een matrix.
 * We moeten de autootjes simuleren. : Auto's worden objecten die een naam, richting, lengte en hun coördinaten bevatten
@@ -16,4 +15,7 @@ Vandaag hebben we 1 enkele auto op een speelveld van 3x3 weten te plaatsen met e
 Vervolgens hadden we 1 enkele rode auto gelinkt aan het speelveld. De coördinaten van de auto linken we aan de coördinaten van het veld door tijdens het printen te kijken wanneer de coördinaten van een auto overeenkomen met de huidige positie van het printen. We moeten er nu alleen nog voor zorgen dat we de lengten van de auto ook juist weergeven in plaats van dat iedere auto maar 1 blokje in de matrix in beslag neemt.
 
 Donderdag 9 januari:
-We zijn de dag begonnen met het netjes maken van onze repository (inclusief deze log!). De readme updaten en wat puntjes op de i zetten in onze powerpoint.
+We zijn de dag begonnen met het netjes maken van onze repository (inclusief deze log!). De readme updaten en wat puntjes op de i zetten in onze powerpoint. Verder hebben we vandaag gewerkt aan het modulair maken van onze code. We hadden hier en daar wat files voor objects maar nu hebben we ieder object zijn eigen file gegeven in de code map en dit met elkaar verbonden. Daarnaast hebben we de repository schoongemaakt en hebben we auto's zo ver gekregen dat we ze kunnen bewegen. Nu moeten we alleen nog collision detection met andere auto's en een win condition implementeren.
+
+Vrijdag 10 januari:
+Win condition geimplementeerd. We dachten het gister gedaan te hebben maar we berekenden alleen een onderdeel van de win condition. Nu returned de functie correct de win coordinaten.

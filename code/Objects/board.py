@@ -18,7 +18,7 @@ class Board(object):
         # Board properties
         self.size = self.load_grid(input_file)
         self.grid = []
-        self.win_location = self.set_winlocation
+        self.win_location = self.set_winlocation(self.size)
         for i in range(self.size):
             coordsY = i + 1
             X_axis = []
@@ -30,10 +30,8 @@ class Board(object):
                 
                 X_axis.append(totalcords)
             self.grid.append(X_axis)
-    
-    def __str__(self):
-        return f"{self.grid}"
-        
+
+    # This function sets the size based on the input file's filename. 
     def load_grid(self, input_file):
         """
         Function that reads the title of the CSV file and retreives the board size
@@ -53,6 +51,14 @@ class Board(object):
             return ("Cant't find board with given input, please try again!")
         return size
 
+    # This function sets the win location of the current board.
     def set_winlocation(self, size):
-        win = math.ceil(size / 2)
-        return win
+        win_coords = []
+        winX = math.ceil(size / 2)
+        winY = self.size
+        win_coords.append(winX)
+        win_coords.append(winY)
+        return win_coords
+
+    def __repr__(self):
+        return f"{self.win_location} {self.grid} {self.size}"
