@@ -11,6 +11,7 @@ class RushHour():
         self.game = Board(in_file)
         self.cars = self.load_cars(in_file)
         self.current_car = None
+        self.red_car = self.choose_car(x)
         
     # This function will load the list of cars from the input file.
     def load_cars(self, in_file):
@@ -22,7 +23,7 @@ class RushHour():
         return cars
 
     # This function will check wheter or not a move is actually possible
-    # It check the route a car would take with the move function and returns True
+    # It checks the route a car would take with the move function and returns True
     # if it is possible and False if it is not possible.
     def check_route(self, car, steps):
         for i in range(steps + 1):
@@ -50,12 +51,16 @@ class RushHour():
         self.current_car = self.choose_car(carname)
         if self.check_route(self.current_car, steps):
             if self.current_car.get_orientation() == True:
+                for coords in range(steps):
+                    if self.current_car.get_coords() + 1 != "." and 
                 if direction == "L":
                     steps = steps * -1
                     self.current_car.set_coords(steps)
+                    self.check_win()
                     return True 
                 elif direction == "R":
                     self.current_car.set_coords(steps)
+                    self.check_win()
                     return True 
                 else:
                     print("Not a valid direction!")
@@ -64,9 +69,11 @@ class RushHour():
             if direction == "U":
                 steps = steps * -1
                 car.set_coords(steps)
+                self.check_win()
                 return True 
             elif direction == "D":
                 car.set_coords(steps)
+                self.check_win()
                 return True 
             else:
                 print("Not a valid direction!")
@@ -83,3 +90,11 @@ class RushHour():
                 car = self.cars[car]
                 break
         return car
+
+    def check_win(self):
+        red_car_coords = Car.get_coords(x)
+        if red_car_coords == Board.get_winloc:
+            print("( ͡◉ ͜ʖ ͡◉)")
+            return True
+        else:
+            return False

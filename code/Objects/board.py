@@ -60,5 +60,8 @@ class Board(object):
         win_coords.append(winY)
         return win_coords
 
+    def get_winloc(self):
+        return self.win_location
+
     def __repr__(self):
         return f"{self.win_location} {self.grid} {self.size}"

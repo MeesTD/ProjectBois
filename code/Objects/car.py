@@ -11,8 +11,10 @@ class Car(object):
         self.name = name
         self.orientation = orientation
         self.length = int(length)
+        self.xy = []
         self.x1 = int(x.replace('"', ''))
         self.y1 = int(y.replace('"', ''))
+
         if self.get_orientation():
             self.x2 = self.x1 + 1
             self.y2 = self.y1
@@ -40,7 +42,19 @@ class Car(object):
     # This method returns the coordinates of the current car.
     def get_coords(self, name):
         """ This method gets the location of the car that is selected"""
-        return name.x1 and name.y1
+        return name.x and name.y
+
+    def make_coords(self, name, x, y):
+        for i in range(self.length):
+            for j in range(self.length):
+                if self.get_orientation():
+                    self.xy.append(x)
+                    x += 1
+                else:
+                    self.xy.append(y)
+                    y += 1
+        return True
+
 
     # This changes the coordinates of the car.
     def set_coords(self, steps):
