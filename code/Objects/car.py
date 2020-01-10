@@ -12,25 +12,9 @@ class Car(object):
         self.orientation = orientation
         self.length = int(length)
         self.xy = []
-        self.x1 = int(x.replace('"', ''))
-        self.y1 = int(y.replace('"', ''))
-
-        if self.get_orientation():
-            self.x2 = self.x1 + 1
-            self.y2 = self.y1
-            if self.length == 3:
-                self.x3 = self.x2 + 1
-                self.y3 = self.y1
-            else:
-                self.x3 = None 
-        if self.get_orientation() == False:
-            self.y2 = self.y1 + 1
-            self.x2 = self.x1
-            if self.length == 3:
-                self.y3 = self.y2 + 1
-                self.x3 = self.x1
-            else:
-                self.y3 = None 
+        x = int(x.replace('"', ''))
+        y = int(y.replace('"', ''))
+        self.xy = self.make_coords(x, y)
 
     # This method returns the orientation of the car.
     def get_orientation(self):
@@ -44,16 +28,19 @@ class Car(object):
         """ This method gets the location of the car that is selected"""
         return name.x and name.y
 
-    def make_coords(self, name, x, y):
-        for i in range(self.length):
-            for j in range(self.length):
-                if self.get_orientation():
-                    self.xy.append(x)
-                    x += 1
-                else:
-                    self.xy.append(y)
-                    y += 1
-        return True
+    def make_coords(self, x, y):
+        """ This method creates the car coordinates for its length"""
+        xy = []
+        for j in range(self.length):
+            temp_coords = []
+            temp_coords.append(x)
+            temp_coords.append(y)
+            xy.append(temp_coords)
+            if self.get_orientation():
+                x += 1
+            else:
+                y += 1
+        return xy
 
 
     # This changes the coordinates of the car.
@@ -72,4 +59,4 @@ class Car(object):
 
                 
     def __repr__(self):
-        return f"{self.name} {self.orientation} {self.length}"
+        return f"{self.name} {self.orientation} {self.length} {self.xy}"
