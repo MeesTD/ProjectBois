@@ -23,8 +23,7 @@ if __name__ == "__main__":
     board = board.Board(in_file)
     game = rushhour.RushHour(in_file)
     
-    # Retreives the cars and the max steps
-    all_cars = game.cars
+   
     max_steps = board.size - random_car.length
     
     # Calls the randomize function 
