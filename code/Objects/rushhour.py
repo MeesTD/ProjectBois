@@ -22,58 +22,42 @@ class RushHour():
                 cars[row['car']] = Car(row['car'], row[' orientation'], row[' "x'], row['y"'], row[' length'])
         return cars
 
-    # This function will check wheter or not a move is actually possible
-    # It checks the route a car would take with the move function and returns True
-    # if it is possible and False if it is not possible.
-    def check_route(self, car, steps):
+    # This function will check wheter or not a move is actually possible returning True if it is and False if it is not.
+    # Achteruit collision doet het nog niet
+    def check_route(self, car, steps, direction):
         cur_car_coords = self.current_car.xy
         for i in range(steps):
-            for j in self.cars:
-                if cur_car_coords[0] += steps == self.cars.get("xy").[0] or cur_car_coords[1] += steps == self.cars.get("xy").[2]:
-                    return False
+            for j in cur_car_coords:
+                if direction == "R" or direction == "L":
+                    for current in range(len(cur_car_coords)):
+                        cur_car_coords[current][0] += 1
+                if direction == "U" or direction == "D":
+                    for current in range(len(cur_car_coords)):
+                        cur_car_coords[current][1] += 1
+            for car in self.cars.values():
+                for test in cur_car_coords:
+                    if test in car.xy:
+                        return False
         return True
 
     # This method allows a car to move and returns True if the move is possible
     # Otherwise it returns false.
     def move(self, carname, direction, steps):
         direction = direction
-        steps = steps
         self.current_car = self.choose_car(carname)
-        if self.check_route(self.current_car, steps):
-            if self.current_car.get_orientation() == True:
-                # for coords in range(steps):
-                #     if self.current_car.get_coords() + 1 != "." and 
-                    steps = steps * -1
-                    if self.check_route(self.current_car, steps):
-                        self.current_car.set_coords(steps)
-                        self.check_win()
-                        return True
-                    else:
-                        return False 
-                elif direction == "R":
-                    if self.check_route(self.current_car, steps):
-                        self.current_car.set_coords(steps)
-                        self.check_win()
-                        return True
-                    else:
-                        return False
-                else:
-                    print("Not a valid direction!")
-                    return False
-
-            if direction == "U" or if direction == "L":
-                steps = steps * -1
-            if self.check_route(self.current_car, steps):
-                self.current_car.set_coords(steps)
-                self.check_win()
-                return True
-            else:
-                return False
-            else:
-                print("Not a valid direction!")
-                return False
+        if direction == "U" or direction == "L":
+            steps = steps * -1
+        elif direction == "R" or direction == "D":
+            steps = steps
         else:
-            print ("A car is in the way!")
+            print("Not a valid direction!")
+            return False
+        if self.check_route(self.current_car, steps, direction):
+            self.current_car.set_coords(steps)
+            self.check_win()
+            return True
+        else:
+            print("A car is in the way.")
             return False
     
     # This function will set the current_car variable based on the input of
@@ -86,7 +70,7 @@ class RushHour():
         return car
 
     def check_win(self):
-        red_car_coords = self.red_car.get_coords()
+        red_car_coords = self.red_car.get_coords("X")
         if red_car_coords == self.game.get_winloc:
             return True
         else:

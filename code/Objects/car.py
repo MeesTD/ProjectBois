@@ -26,7 +26,7 @@ class Car(object):
     # This method returns the coordinates of the current car.
     def get_coords(self, name):
         """ This method gets the location of the car that is selected"""
-        return name.x and name.y
+        return self.xy
 
     def make_coords(self, x, y):
         """ This method creates the car coordinates for its length"""
