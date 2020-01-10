@@ -47,9 +47,7 @@ class RushHour():
         name = carname
         direction = direction
         steps = steps
-        for car in self.cars:
-            if self.cars[car].name == name:
-                self.current_car = self.cars[car]
+        self.current_car = self.choose_car(carname)
         if self.check_route(self.current_car, steps):
             if self.current_car.get_orientation() == True:
                 if direction == "L":
@@ -80,4 +78,8 @@ class RushHour():
     # This function will set the current_car variable based on the input of
     # a car name.
     def choose_car(self, name):
-        pass
+        for car in self.cars:
+            if self.cars[car].name == name:
+                car = self.cars[car]
+                break
+        return car
