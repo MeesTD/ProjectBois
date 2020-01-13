@@ -1,6 +1,7 @@
 from .car import Car
 from .board import Board
 import csv
+import copy
 
 class RushHour():
     """
@@ -25,7 +26,9 @@ class RushHour():
     # This function will check wheter or not a move is actually possible returning True if it is and False if it is not.
     # Achteruit collision doet het nog niet
     def check_route(self, car, steps, direction):
-        cur_car_coords = self.current_car.xy
+        cur_car_coords = copy.deepcopy(self.current_car.xy)
+        if steps < 0:
+            steps = abs(steps)
         for i in range(steps):
             for j in cur_car_coords:
                 if direction == "R" or direction == "L":
@@ -41,18 +44,28 @@ class RushHour():
         return True
 
     # This method allows a car to move and returns True if the move is possible
-    # Otherwise it returns false.
+    # Otherwise it returns False.
     def move(self, carname, direction, steps):
         direction = direction
         self.current_car = self.choose_car(carname)
+        if self.current_car.get_orientation():
+            if direction == "L" or direction == "R":
+                pass
+            else:
+                print("Not a valid direction")
+                return False
+        elif not self.current_car.get_orientation():
+            if direction == "U" or direction == "D":
+                pass
+            else:
+                print("Not a valid direction")
+                return False
         if direction == "U" or direction == "L":
             steps = steps * -1
         elif direction == "R" or direction == "D":
             steps = steps
-        else:
-            print("Not a valid direction!")
-            return False
         if self.check_route(self.current_car, steps, direction):
+            print("Making a move.")
             self.current_car.set_coords(steps)
             self.check_win()
             return True
