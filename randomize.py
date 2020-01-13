@@ -37,20 +37,29 @@ if __name__ == "__main__":
     board = board.Board(in_file)
     game = rushhour.RushHour(in_file)
     
+    count = 0
+    
     # Calls the randomize function 
     info_list = randomizer(board, game.cars)
     
     while True: 
         game.move(info_list[0].name, info_list[1], info_list[2])
         
+        count += 1
+        print(count)
+        
         info_list = randomizer(board, game.cars)
         
-        game.print_game(board, game)
+        # game.print_game(board, game)
+        
         
         if game.check_win():
             break
             
-    print("fuck this shit, i'm out")
+    print(count)
+   
+   
+    # game.print_game(board, game)
             
         
     

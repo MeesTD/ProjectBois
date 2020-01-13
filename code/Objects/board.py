@@ -54,8 +54,8 @@ class Board(object):
     # This function sets the win location of the current board.
     def set_winlocation(self, size):
         win_coords = []
-        winX = math.ceil(size / 2)
-        winY = self.size
+        winX = self.size
+        winY = math.ceil(size / 2) + 1
         win_coords.append(winX)
         win_coords.append(winY)
         return win_coords

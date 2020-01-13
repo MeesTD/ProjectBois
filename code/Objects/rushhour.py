@@ -71,13 +71,13 @@ class RushHour():
             if direction == "L" or direction == "R":
                 pass
             else:
-                print("Not a valid direction")
+                #print("Not a valid direction")
                 return False
         elif not self.current_car.get_orientation():
             if direction == "U" or direction == "D":
                 pass
             else:
-                print("Not a valid direction")
+                #print("Not a valid direction")
                 return False
         if direction == "U" or direction == "L":
             steps = steps * -1
@@ -86,10 +86,10 @@ class RushHour():
         if self.check_route(self.current_car, steps, direction):
             self.current_car.set_coords(steps)
             self.check_win()
-            print(f"Moved car {self.current_car.name} to {self.current_car.xy}")
+            #print(f"Moved car {self.current_car.name} to {self.current_car.xy}")
             return True
         else:
-            print("Move not possible")
+            #print("Move not possible")
             return False
 
     # This function will set the current_car variable based on the input of
@@ -114,7 +114,7 @@ class RushHour():
                 for j in range(board.size + 2):
                     if i == 0 or i == board.size + 1:
                         print("-", end="")
-                    elif j == board.size + 1 and i == math.ceil(board.size / 2):
+                    elif j == board.size + 1 and i == math.ceil(board.size / 2) + 1:
                         print(">", end="")
                     elif j == 0 or j == board.size + 1:
                         print("|", end="")

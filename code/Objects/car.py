@@ -47,7 +47,7 @@ class Car(object):
     def set_coords(self, steps):
         """ This method changes the coördinates for the selected car"""
         for i in range(len(self.xy)):
-            if self.get_orientation:
+            if self.get_orientation():
                 self.xy[i][0] += steps
             else:
                 self.xy[i][1] += steps
