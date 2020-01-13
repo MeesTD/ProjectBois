@@ -2,6 +2,7 @@ from .car import Car
 from .board import Board
 import csv
 import copy
+import math
 
 class RushHour():
     """
@@ -23,21 +24,32 @@ class RushHour():
                 cars[row['car']] = Car(row['car'], row[' orientation'], row[' "x'], row['y"'], row[' length'])
         return cars
 
-    # This function will check wheter or not a move is actually possible returning True if it is and False if it is not.
-    # Achteruit collision doet het nog niet
+    # This function will check wheter or not a move is actually possible. 
+    # Returning True if it is and False if it is not.
     def check_route(self, car, steps, direction):
+        #  Create a deep copy of the car and steps so they are not changed.
         cur_car_coords = copy.deepcopy(self.current_car.xy)
-        if steps < 0:
-            steps = abs(steps)
-        for i in range(steps):
-            for j in cur_car_coords:
-                if direction == "R" or direction == "L":
-                    for current in range(len(cur_car_coords)):
+        loc_steps = steps
+        # Check the coordinates of all cars for each step the user wants to take.
+        for i in range(abs(loc_steps)):
+            # If a user goes left or down steps has to be negative. Because of board index
+            if direction == "R" or direction == "L":
+                for current in range(len(cur_car_coords)):
+                    if direction == "L":
+                        cur_car_coords[current][0] -= 1 
+                    else:
                         cur_car_coords[current][0] += 1
-                if direction == "U" or direction == "D":
-                    for current in range(len(cur_car_coords)):
+            if direction == "U" or direction == "D":
+                for current in range(len(cur_car_coords)):
+                    if direction == "U":
+                        cur_car_coords[current][1] -= 1
+                    else:
                         cur_car_coords[current][1] += 1
+            # Check if the currently altered coords exist in other cars.
             for car in self.cars.values():
+                # Do not check the currently selected car.
+                if car == self.current_car:
+                    continue
                 for test in cur_car_coords:
                     if test in car.xy:
                         return False
@@ -65,9 +77,9 @@ class RushHour():
         elif direction == "R" or direction == "D":
             steps = steps
         if self.check_route(self.current_car, steps, direction):
-            print("Making a move.")
             self.current_car.set_coords(steps)
             self.check_win()
+            print(f"Moved car {self.current_car.name} to {self.current_car.xy}")
             return True
         else:
             print("A car is in the way.")
@@ -85,6 +97,28 @@ class RushHour():
     def check_win(self):
         red_car_coords = self.red_car.get_coords("X")
         if red_car_coords == self.game.get_winloc:
+            print("You've won!")
             return True
         else:
             return False
+
+    def print_game(self, board, game):
+        for i in reversed(range(board.size + 2)):
+                for j in range(board.size + 2):
+                    if i == 0 or i == board.size + 1:
+                        print("-", end="")
+                    elif j == board.size + 1 and i == math.ceil(board.size / 2):
+                        print(">", end="")
+                    elif j == 0 or j == board.size + 1:
+                        print("|", end="")
+                    elif j < board.size + 1 or j < board.size + 1:
+                        for car in game.cars.values():
+                            for l in range(len(car.xy)):
+                                if car.xy[l][0] == j and car.xy[l][1] == i:
+                                    name = car.name
+                        if name != None:
+                            print(name, end="")
+                            name = None
+                        else:
+                            print(".",end="")         
+                print("")
