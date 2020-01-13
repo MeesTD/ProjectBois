@@ -42,7 +42,7 @@ class RushHour():
                         cur_car_coords[current][0] += 1
                     # Do not allow the car to go out of bounds.
                     if cur_car_coords[current][0] < 0 or cur_car_coords[current][0] > self.game.size:
-                        return False
+                        return 4
             if direction == "U" or direction == "D":
                 for current in range(len(cur_car_coords)):
                     if direction == "U":
@@ -51,7 +51,7 @@ class RushHour():
                         cur_car_coords[current][1] += 1
                     # Do not allow the car to go out of bounds.
                     if cur_car_coords[current][1] < 0 or cur_car_coords[current][1] > self.game.size:
-                        return False
+                        return 4
             # Check if the currently altered coords exist in other cars.
             for car in self.cars.values():
                 # Do not check the currently selected car.
@@ -59,7 +59,7 @@ class RushHour():
                     continue
                 for test in cur_car_coords:
                     if test in car.xy:
-                        return False
+                        return 3
         return True
 
     # This method allows a car to move and returns True if the move is possible
@@ -88,8 +88,11 @@ class RushHour():
             self.check_win()
             print(f"Moved car {self.current_car.name} to {self.current_car.xy}")
             return True
-        else:
+        elif self.check_route(self.current_car, steps, direction) == 3:
             print("A car is in the way.")
+            return False
+        elif self.check_route(self.current_car, steps, direction) == 4:
+            print("Not possible, out of bounds")
             return False
     
     # This function will set the current_car variable based on the input of
