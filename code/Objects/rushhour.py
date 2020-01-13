@@ -50,7 +50,7 @@ class RushHour():
                     else:
                         cur_car_coords[current][1] += 1
                     # Do not allow the car to go out of bounds.
-                    if cur_car_coords[current[1]] < 0 or cur_car_coords[current][1] > self.game.size:
+                    if cur_car_coords[current][1] < 0 or cur_car_coords[current][1] > self.game.size:
                         return False
             # Check if the currently altered coords exist in other cars.
             for car in self.cars.values():
@@ -104,7 +104,6 @@ class RushHour():
     def check_win(self):
         red_car_coords = self.red_car.get_coords("X")
         if red_car_coords == self.game.get_winloc:
-            print("You've won!")
             return True
         else:
             return False
