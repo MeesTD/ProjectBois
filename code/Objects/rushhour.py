@@ -34,17 +34,24 @@ class RushHour():
         for i in range(abs(loc_steps)):
             # If a user goes left or down steps has to be negative. Because of board index
             if direction == "R" or direction == "L":
+                # Add 1 to coordinates to check those coordinates
                 for current in range(len(cur_car_coords)):
                     if direction == "L":
                         cur_car_coords[current][0] -= 1 
                     else:
                         cur_car_coords[current][0] += 1
+                    # Do not allow the car to go out of bounds.
+                    if cur_car_coords[current][0] < 0 or cur_car_coords[current][0] > self.game.size:
+                        return False
             if direction == "U" or direction == "D":
                 for current in range(len(cur_car_coords)):
                     if direction == "U":
                         cur_car_coords[current][1] -= 1
                     else:
                         cur_car_coords[current][1] += 1
+                    # Do not allow the car to go out of bounds.
+                    if cur_car_coords[current[1]] < 0 or cur_car_coords[current][1] > self.game.size:
+                        return False
             # Check if the currently altered coords exist in other cars.
             for car in self.cars.values():
                 # Do not check the currently selected car.
