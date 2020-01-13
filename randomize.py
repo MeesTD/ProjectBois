@@ -1,33 +1,60 @@
 import random
 from code.Objects import board, car, rushhour
 
-def randomizer(cars, max_steps):
+def randomizer(board, cars):
     """
     Randomly choses the car, the amount of steps and direction    
     """
+    
+    # Initializes the variables
     random_list = []
+    orientation_h = ['L', 'R']
+    orientation_v = ['U', 'D']
     
     # Randomily chooses car, steps and direction
-    random_car = random.choice(cars)
-    random_step = random.randrange(1, max_steps)
-    random_direction = random.choice([H, V])
+    random_car = cars[random.choice(list(cars))]
     
-    random_list.extend((random_car, random_step, random_direction))
+    
+    max_steps = board.size - random_car.length
+    random_step = random.randrange(1, max_steps)
+    
+    # Checks if the car is H or V
+    if random_car.get_orientation():
+        random_direction = random.choice(orientation_h)
+        
+    else:    
+        random_direction = random.choice(orientation_v)
+    
+    random_list.extend((random_car, random_direction, random_step))
     
     return random_list
+    
     
 if __name__ == "__main__":  
     
     # Creates an instance of the board
-    in_file = 'code/Data/Rushhour9x9_4.csv'
+    in_file = 'code/Data/Rushhour6x6_1.csv'
     board = board.Board(in_file)
     game = rushhour.RushHour(in_file)
     
-   
-    max_steps = board.size - random_car.length
-    
     # Calls the randomize function 
-    info_list = randomizer(game.cars, max_steps)
+    info_list = randomizer(board, game.cars)
     
-    game.move(info_list[0], random_step[1], random_direction[2])
+    while True: 
+        game.move(info_list[0].name, info_list[1], info_list[2])
+        
+        info_list = randomizer(board, game.cars)
+        
+        game.print_game(board, game)
+        
+        if game.check_win():
+            break
+            
+    print("fuck this shit, i'm out")
+            
+        
+    
+
+    
+    
     

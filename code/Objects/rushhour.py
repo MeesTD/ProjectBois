@@ -41,7 +41,7 @@ class RushHour():
                     else:
                         cur_car_coords[current][0] += 1
                     # Do not allow the car to go out of bounds.
-                    if cur_car_coords[current][0] < 0 or cur_car_coords[current][0] > self.game.size:
+                    if cur_car_coords[current][0] < 1 or cur_car_coords[current][0] > self.game.size - 1:
                         return False
             if direction == "U" or direction == "D":
                 for current in range(len(cur_car_coords)):
@@ -50,7 +50,7 @@ class RushHour():
                     else:
                         cur_car_coords[current][1] += 1
                     # Do not allow the car to go out of bounds.
-                    if cur_car_coords[current][1] < 0 or cur_car_coords[current][1] > self.game.size:
+                    if cur_car_coords[current][1] < 1 or cur_car_coords[current][1] > self.game.size - 1:
                         return False
             # Check if the currently altered coords exist in other cars.
             for car in self.cars.values():
@@ -109,6 +109,7 @@ class RushHour():
             return False
 
     def print_game(self, board, game):
+        name = None
         for i in reversed(range(board.size + 2)):
                 for j in range(board.size + 2):
                     if i == 0 or i == board.size + 1:
