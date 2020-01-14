@@ -18,4 +18,9 @@ Donderdag 9 januari:
 We zijn de dag begonnen met het netjes maken van onze repository (inclusief deze log!). De readme updaten en wat puntjes op de i zetten in onze powerpoint. Verder hebben we vandaag gewerkt aan het modulair maken van onze code. We hadden hier en daar wat files voor objects maar nu hebben we ieder object zijn eigen file gegeven in de code map en dit met elkaar verbonden. Daarnaast hebben we de repository schoongemaakt en hebben we auto's zo ver gekregen dat we ze kunnen bewegen. Nu moeten we alleen nog collision detection met andere auto's en een win condition implementeren.
 
 Vrijdag 10 januari:
-Win condition geimplementeerd. We dachten het gister gedaan te hebben maar we berekenden alleen een onderdeel van de win condition. Nu returned de functie correct de win coordinaten.
+Win condition geimplementeerd. We dachten het gister gedaan te hebben maar we berekenden alleen een onderdeel van de win condition. Nu returned de functie correct de win coordinaten. Ook hebben we een begin gemaakt met collision detection. Maar hij is nog niet af
+
+Maandag 11 januari: We hebben ons coordinaten systeem van de auto's compleet moeten omgooien omdat het niet een effectieve manier was van coordinaten bijhouden. Nu hebben we een lijst van lijsten die de coordinaten bijhoudt, eigenlijk hetzelfde als de grid. Deze runnen we tegenover de coordinaten van andere auto's per stap die gezet wordt om te zorgen dat er geen collision is. Ook hebben we gezorgd dat de auto's niet buiten de grid kunnen komen.
+
+Dinsdag 12 januari: We hebben de eerste werkende versie van het programma en random!
+
