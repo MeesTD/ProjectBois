@@ -41,7 +41,7 @@ class RushHour():
                     else:
                         cur_car_coords[current][0] += 1
                     # Do not allow the car to go out of bounds.
-                    if cur_car_coords[current][0] < 1 or cur_car_coords[current][0] > self.game.size - 1:
+                    if cur_car_coords[current][0] < 1 or cur_car_coords[current][0] > self.game.size:
                         return False
             if direction == "U" or direction == "D":
                 for current in range(len(cur_car_coords)):
@@ -50,7 +50,7 @@ class RushHour():
                     else:
                         cur_car_coords[current][1] += 1
                     # Do not allow the car to go out of bounds.
-                    if cur_car_coords[current][1] < 1 or cur_car_coords[current][1] > self.game.size - 1:
+                    if cur_car_coords[current][1] < 1 or cur_car_coords[current][1] > self.game.size:
                         return False
             # Check if the currently altered coords exist in other cars.
             for car in self.cars.values():
@@ -85,7 +85,6 @@ class RushHour():
             steps = steps
         if self.check_route(self.current_car, steps, direction):
             self.current_car.set_coords(steps)
-            self.check_win()
             #print(f"Moved car {self.current_car.name} to {self.current_car.xy}")
             return True
         else:
@@ -103,7 +102,8 @@ class RushHour():
 
     def check_win(self):
         red_car_coords = self.red_car.get_coords("X")
-        if red_car_coords == self.game.get_winloc:
+        test = self.game.get_winloc()
+        if red_car_coords[1] == test:
             return True
         else:
             return False
@@ -114,7 +114,7 @@ class RushHour():
                 for j in range(board.size + 2):
                     if i == 0 or i == board.size + 1:
                         print("-", end="")
-                    elif j == board.size + 1 and i == math.ceil(board.size / 2) + 1:
+                    elif j == board.size + 1 and i == math.ceil(board.size / 2):
                         print(">", end="")
                     elif j == 0 or j == board.size + 1:
                         print("|", end="")
