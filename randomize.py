@@ -42,27 +42,32 @@ if __name__ == "__main__":
     # Calls the randomize function 
     info_list = randomizer(board, game.cars)
     
+    # Loop runs while solution is not found
     while True: 
+        
+        # Inserts the random chosen variables
         game.move(info_list[0].name, info_list[1], info_list[2])
         
-        count += 1
-        print(count)
-        if count >= 100000:
-            game.print_game(board,game)
-            break
-        info_list = randomizer(board, game.cars)
+        # Checks if move is valid
+        if game.move: 
+            
+            # Updates the counter 
+            count += 1
+            
+            # Checks if the limit is reached 
+            if count >= 1000000:
+                game.print_game(board,game)
+                break
         
-        # game.print_game(board, game)
+            # Calls the randomize function
+            info_list = randomizer(board, game.cars)
         
-        
+        # Checks if the game is won and stops the loop
         if game.check_win():
             game.print_game(board, game)
+            print(count)
             break
-            
-    print(count)
    
-   
-    # game.print_game(board, game)
             
         
     
