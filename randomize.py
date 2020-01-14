@@ -33,7 +33,7 @@ def randomizer(board, cars):
 if __name__ == "__main__":  
     
     # Creates an instance of the board
-    in_file = 'code/Data/Rushhour6x6_1.csv'
+    in_file = 'code/Data/Rushhour6x6_2.csv'
     board = board.Board(in_file)
     game = rushhour.RushHour(in_file)
     
