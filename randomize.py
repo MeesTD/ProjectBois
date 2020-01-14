@@ -30,37 +30,59 @@ def randomizer(board, cars):
     return random_list
     
     
+    
 if __name__ == "__main__":  
     
-    # Creates an instance of the board
-    in_file = 'code/Data/Rushhour6x6_1.csv'
+    in_file = 'code/Data/Rushhour6x6_2.csv'
     board = board.Board(in_file)
-    game = rushhour.RushHour(in_file)
     
-    count = 0
+    sum_counts = []
+    sum_avg = []
     
-    # Calls the randomize function 
-    info_list = randomizer(board, game.cars)
     
-    while True: 
-        game.move(info_list[0].name, info_list[1], info_list[2])
+    while len(sum_counts) < 50: 
         
-        count += 1
-        print(count)
+        # Creates an instance of the board
         
+        game = rushhour.RushHour(in_file)
+    
+        count = 0
+     
+        # Calls the randomize function 
         info_list = randomizer(board, game.cars)
         
-        # game.print_game(board, game)
+        # Loop runs while solution is not found
+        while True: 
         
+            # Inserts the random chosen variables
+            game.move(info_list[0].name, info_list[1], info_list[2])
         
-        if game.check_win():
-            break
+            # Checks if move is valid
+            if game.move: 
             
-    print(count)
-   
-   
-    # game.print_game(board, game)
+                # Updates the counter 
+                count += 1
             
+                # Checks if the limit is reached 
+                if count >= 1000000:
+                    game.print_game(board,game)
+                    break
+        
+                # Calls the randomize function
+                info_list = randomizer(board, game.cars)
+        
+            # Checks if the game is won and stops the loop
+            if game.check_win():
+                game.print_game(board, game)
+                sum_counts.append(count)
+                break
+        
+        print(count)
+    
+    # Calculates the average of the solutions
+    avg = sum(sum_counts)/len(sum_counts)
+    sum_avg.append(avg)
+    print(sum_avg)
         
     
 
