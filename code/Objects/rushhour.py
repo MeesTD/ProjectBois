@@ -39,7 +39,7 @@ class RushHour():
                     if direction == "L":
                         cur_car_coords[current][0] -= 1 
                     else:
-                        cur_car_coords[current][0] += 1
+                        cur_car_coords[current][0] += 1.
                     # Do not allow the car to go out of bounds.
                     if cur_car_coords[current][0] < 1 or cur_car_coords[current][0] > self.game.size:
                         return False
@@ -114,7 +114,7 @@ class RushHour():
                 for j in range(board.size + 2):
                     if i == 0 or i == board.size + 1:
                         print("-", end="")
-                    elif j == board.size + 1 and i == math.ceil(board.size / 2):
+                    elif j == board.size + 1 and i == math.floor(board.size / 2) + 1:
                         print(">", end="")
                     elif j == 0 or j == board.size + 1:
                         print("|", end="")
