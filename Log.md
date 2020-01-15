@@ -20,7 +20,9 @@ We zijn de dag begonnen met het netjes maken van onze repository (inclusief deze
 Vrijdag 10 januari:
 Win condition geimplementeerd. We dachten het gister gedaan te hebben maar we berekenden alleen een onderdeel van de win condition. Nu returned de functie correct de win coordinaten. Ook hebben we een begin gemaakt met collision detection. Maar hij is nog niet af
 
-Maandag 11 januari: We hebben ons coordinaten systeem van de auto's compleet moeten omgooien omdat het niet een effectieve manier was van coordinaten bijhouden. Nu hebben we een lijst van lijsten die de coordinaten bijhoudt, eigenlijk hetzelfde als de grid. Deze runnen we tegenover de coordinaten van andere auto's per stap die gezet wordt om te zorgen dat er geen collision is. Ook hebben we gezorgd dat de auto's niet buiten de grid kunnen komen.
+Maandag 13 januari: We hebben ons coordinaten systeem van de auto's compleet moeten omgooien omdat het niet een effectieve manier was van coordinaten bijhouden. Nu hebben we een lijst van lijsten die de coordinaten bijhoudt, eigenlijk hetzelfde als de grid. Deze runnen we tegenover de coordinaten van andere auto's per stap die gezet wordt om te zorgen dat er geen collision is. Ook hebben we gezorgd dat de auto's niet buiten de grid kunnen komen.
 
-Dinsdag 12 januari: We hebben de eerste werkende versie van het programma en random!
+Dinsdag 14 januari: We hebben de eerste werkende versie van het programma en random! Ook begonnen aan het maken van een route Object dat we zullen gebruiken om states van het bord te archiveren en hiermee te prunen.
+
+Woensdag 15 januari:
 

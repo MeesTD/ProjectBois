@@ -1,5 +1,5 @@
 import random
-from code.Objects import board, car, rushhour
+from code.Objects import board, car, rushhour, route
 
 def randomizer(board, cars):
     """
@@ -44,6 +44,8 @@ if __name__ == "__main__":
         
         # Creates an instance of the board
         
+        archive = Route()
+
         game = rushhour.RushHour(in_file)
     
         count = 0

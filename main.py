@@ -9,5 +9,3 @@ if __name__ == "__main__":
     game = rushhour.RushHour(in_file)
     while True:
         
-
-
