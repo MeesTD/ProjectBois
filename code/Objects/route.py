@@ -13,7 +13,7 @@ class Route():
         return True
 
     # This method saves the current grid state to the states dictionary
-    def save_state(self, car_list):
+    def save_state(self, car_list, key_string):
         # Try except to make sure nothing goes wrong.
         local_list = {}
         for car in car_list.values():

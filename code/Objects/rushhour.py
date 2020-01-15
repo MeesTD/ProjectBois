@@ -3,6 +3,8 @@ from .board import Board
 import csv
 import copy
 import math
+# key_string = str(archive.moves) + str(info_list[0].name) + str(info_list[1]) + str(info_list[2])
+
 
 class RushHour():
     """
@@ -71,13 +73,11 @@ class RushHour():
             if direction == "L" or direction == "R":
                 pass
             else:
-                #print("Not a valid direction")
                 return False
         elif not self.current_car.get_orientation():
             if direction == "U" or direction == "D":
                 pass
             else:
-                #print("Not a valid direction")
                 return False
         if direction == "U" or direction == "L":
             steps = steps * -1
@@ -85,10 +85,8 @@ class RushHour():
             steps = steps
         if self.check_route(self.current_car, steps, direction):
             self.current_car.set_coords(steps)
-            #print(f"Moved car {self.current_car.name} to {self.current_car.xy}")
             return True
         else:
-            #print("Move not possible")
             return False
 
     # This function will set the current_car variable based on the input of

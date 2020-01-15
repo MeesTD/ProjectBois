@@ -22,7 +22,9 @@ Win condition geimplementeerd. We dachten het gister gedaan te hebben maar we be
 
 Maandag 13 januari: We hebben ons coordinaten systeem van de auto's compleet moeten omgooien omdat het niet een effectieve manier was van coordinaten bijhouden. Nu hebben we een lijst van lijsten die de coordinaten bijhoudt, eigenlijk hetzelfde als de grid. Deze runnen we tegenover de coordinaten van andere auto's per stap die gezet wordt om te zorgen dat er geen collision is. Ook hebben we gezorgd dat de auto's niet buiten de grid kunnen komen.
 
-Dinsdag 14 januari: We hebben de eerste werkende versie van het programma en random! Ook begonnen aan het maken van een route Object dat we zullen gebruiken om states van het bord te archiveren en hiermee te prunen.
+Dinsdag 14 januari: We hebben de eerste werkende versie van het programma en random! Ook begonnen aan het maken van een route Object dat we zullen gebruiken om states van het bord te archiveren en hiermee te prunen. Het gemiddelde van random ligt op 12000
 
 Woensdag 15 januari:
+We hebben een route object geimplementeerd dat de states van het bord onthoud. Mees dacht het zo geimplementeerd te hebben dat er een verbetering was van 1500% doordat het gemiddelde daalde van 12000 naar 790. Maar volgens hem was er een foutje in de code waardoor het niet klopte.
+In een fix hiervoor kan het random algoritme het niet oplossen. Hij creeert soms wel een opening voor de rode auto maar detecteert deze niet. Hiervoor moet een oplossing komen.
 
