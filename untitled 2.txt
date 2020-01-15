@@ -56,9 +56,7 @@ def make_nodes(board, cars):
     
     
        def check_route(self, car, steps, direction):
-           
-
-    
-    
-                    
-
+	   
+	   
+	   
+	   
