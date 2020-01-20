@@ -1,16 +1,62 @@
 import random
+import copy
+from ..Objects import board, car, rushhour
 
-
-def random_car(cars):
-    """"
-    Randomly picks car 
+def randomize_car(cars):
     """
-    for car in cars: 
+    Randomly chooses the car out of the list of cars.  
+    """
+    
+    random_car = cars[random.choice(list(cars))]
+
+    return random_car
+
+
+def randomize_direction(car):
+    """
+    This method returns a random direction for a move based on the direction
+    of the car.
+    """
+    # Initaliaze variables
+    orientation_h = ['L', 'R']
+    orientation_v = ['U', 'D']
+
+    # Based on the direction of the car give random direction 1 of 2 lists
+    if car.get_orientation():
+        random_direction = random.choice(orientation_h)
         
-        
+    else:    
+        random_direction = random.choice(orientation_v)
 
-def random_step(steps):
+    return random_direction
+
+
+def randomize_steps(board, car):
     """
-    Randomly picks an amount of steps
+    This method returns a random amount of steps a car can take.
+    This is based on its length.
     """
-    return random.choice(steps)
+
+    max_steps = board - car.length
+    random_step = random.randrange(1, max_steps)
+
+    return random_step
+    
+    
+def run(game, board):
+    """
+    Algorithm that makes a random move based on the max steps of a random car.
+    """
+
+    # Create a copy of the game that will be returned later
+    new_game = copy.deepcopy(game)
+    
+    # Choose a random car
+    random_car = randomize_car(game.cars)
+
+    # Make the move with the other variables
+    while True:
+        new_game.move(random_car.name, randomize_direction(random_car), randomize_steps(game.game.size, random_car))
+        if game.check_win():
+            game.print_game(board, new_game)
+    return game

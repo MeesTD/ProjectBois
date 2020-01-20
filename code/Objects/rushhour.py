@@ -3,6 +3,7 @@ from .board import Board
 import csv
 import copy
 import math
+import hashlib
 
 class RushHour():
     """
@@ -26,10 +27,12 @@ class RushHour():
 
     # This function will check wheter or not a move is actually possible. 
     # Returning True if it is and False if it is not.
-    def check_route(self, car, steps, direction):
-        #  Create a deep copy of the car and steps so they are not changed.
-        cur_car_coords = copy.deepcopy(self.current_car.xy)
-        loc_steps = steps
+    def check_route(self, carname, direction, steps):
+
+        # Create a deep copy of the car and steps so they are not changed.
+        cur_car_coords = copy.deepcopy(self.cars[carname].xy)
+        loc_steps = int(steps)
+
         # Check the coordinates of all cars for each step the user wants to take.
         for i in range(abs(loc_steps)):
             # If a user goes left or down steps has to be negative. Because of board index
@@ -40,25 +43,29 @@ class RushHour():
                         cur_car_coords[current][0] -= 1 
                     else:
                         cur_car_coords[current][0] += 1.
+
                     # Do not allow the car to go out of bounds.
                     if cur_car_coords[current][0] < 1 or cur_car_coords[current][0] > self.game.size:
                         return False
+
+            # Check up and down
             if direction == "U" or direction == "D":
                 for current in range(len(cur_car_coords)):
-                    if direction == "U":
+                    if direction == "D":
                         cur_car_coords[current][1] -= 1
                     else:
                         cur_car_coords[current][1] += 1
                     # Do not allow the car to go out of bounds.
                     if cur_car_coords[current][1] < 1 or cur_car_coords[current][1] > self.game.size:
                         return False
+
             # Check if the currently altered coords exist in other cars.
-            for car in self.cars.values():
+            for check_car in self.cars.values():
                 # Do not check the currently selected car.
-                if car == self.current_car:
+                if check_car == self.cars[carname]:
                     continue
                 for test in cur_car_coords:
-                    if test in car.xy:
+                    if test in check_car.xy:
                         return False
         return True
 
@@ -71,24 +78,20 @@ class RushHour():
             if direction == "L" or direction == "R":
                 pass
             else:
-                #print("Not a valid direction")
                 return False
         elif not self.current_car.get_orientation():
             if direction == "U" or direction == "D":
                 pass
             else:
-                #print("Not a valid direction")
                 return False
-        if direction == "U" or direction == "L":
+        if direction == "D" or direction == "L":
             steps = steps * -1
-        elif direction == "R" or direction == "D":
+        elif direction == "R" or direction == "U":
             steps = steps
-        if self.check_route(self.current_car, steps, direction):
+        if self.check_route(self.current_car.name, direction, steps):
             self.current_car.set_coords(steps)
-            #print(f"Moved car {self.current_car.name} to {self.current_car.xy}")
             return True
         else:
-            #print("Move not possible")
             return False
 
     # This function will set the current_car variable based on the input of
@@ -96,14 +99,13 @@ class RushHour():
     def choose_car(self, name):
         for car in self.cars:
             if self.cars[car].name == name:
-                car = self.cars[car]
+                chosen_car = self.cars[car]
                 break
-        return car
+        return chosen_car
 
     def check_win(self):
         red_car_coords = self.red_car.get_coords("X")
-        test = self.game.get_winloc()
-        if red_car_coords[1] == test:
+        if red_car_coords[1] == self.game.get_winloc():
             return True
         else:
             return False
