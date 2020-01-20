@@ -1,5 +1,4 @@
 import copy
-import queue
 from ..Objects import board, car, rushhour, route
 
 class Breadthfirst(object):
@@ -42,10 +41,8 @@ class Breadthfirst(object):
             for step in range(1, max_steps):
                 # Check if the move is possible before making it.
                 if game.check_route(car.name, direction, step):
-                    print("move possible.s")
                     single_possibility = []
                     single_possibility = [str(car.name), str(direction), int(step)]
-                    print("Appending move:", single_possibility)
                     possibilities.append(single_possibility)
                 
         return possibilities
@@ -67,7 +64,7 @@ class Breadthfirst(object):
         while self.states:
             all_possibilities = []
             new_state = self.get_next_state()
-            new_state.print_game(new_state.game, new_state)
+            # new_state.print_game(new_state.game, new_state)
             # Loop over all cars.
             if not new_state.check_win():
                 for car in new_state.cars.values():
@@ -83,5 +80,6 @@ class Breadthfirst(object):
             else:
                 new_state.print_game(new_state.game, new_state)
                 print("Won!", len(self.states))
+                print(new_state.archive.moves)
                 break
         print("No more states")

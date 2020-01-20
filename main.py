@@ -7,7 +7,7 @@ from code.Algorithms import randomize, randomize_with_routes, breadthfirst_2
 if __name__ == "__main__":
 
     source_folder = "code/Data/"
-    source_file = "Rushhour6x6test.csv"
+    source_file = "Rushhour6x6_1.csv"
     # Initialize in_file
     in_file = f"{source_folder}{source_file}"
     # Initialize both the board and the game based on the infile.

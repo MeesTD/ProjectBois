@@ -1,5 +1,6 @@
 from .car import Car
 from .board import Board
+from .route import Route
 import csv
 import copy
 import math
@@ -15,6 +16,7 @@ class RushHour():
         self.cars = self.load_cars(in_file)
         self.current_car = None
         self.red_car = self.choose_car('X')
+        self.archive = Route()
         
     # This function will load the list of cars from the input file.
     def load_cars(self, in_file):
@@ -90,6 +92,7 @@ class RushHour():
             steps = steps
         if self.check_route(self.current_car.name, direction, steps):
             self.current_car.set_coords(steps)
+            self.archive.add_move()
             return True
         else:
             return False
@@ -131,3 +134,6 @@ class RushHour():
                         else:
                             print(".",end="")         
                 print("")
+
+    def __hash__ (self):
+        return hash((self.cars.values()))
