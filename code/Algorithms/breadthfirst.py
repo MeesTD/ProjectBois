@@ -8,9 +8,10 @@ class Breadthfirst(object):
 
     def __init__(self, infile):
         # Initialize variables to be used in the game
-        # We need a rushhour object to access its methods
+        # We need a rushhour and route object to access its methods
         self.first_state = rushhour.RushHour(infile)
         self.states = []
+        self.archive = route.Route()
 
         # Initialize the first state.
         self.states.append(copy.deepcopy(self.first_state))
@@ -60,7 +61,6 @@ class Breadthfirst(object):
                 self.states.append(new_game)
 
     def run(self):
-        self.archive = route.Route()
         i = 0
         while self.states and i < 10000:
             print(len(self.states))

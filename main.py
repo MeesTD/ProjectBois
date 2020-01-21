@@ -3,7 +3,7 @@ import os
 import hashlib
 import copy
 from code.Objects import board, car, rushhour, route
-from code.Algorithms import breadthfirst, randomize, randomize_with_routes
+from code.Algorithms import breadthfirst, randomize, randomize_with_routes, branchandbound
 
 def Average(lst):
     return sum(lst)/len(lst)
@@ -12,7 +12,7 @@ if __name__ == "__main__":
 
     # Initialize in_file
     source_folder = "code/Data/"
-    source_file = "Rushhour12x12_7.csv"
+    source_file = "Rushhour9x9_4.csv"
     in_file = f"{source_folder}{source_file}"
 
     # Initialize both the board and the game based on the infile.
@@ -37,14 +37,14 @@ if __name__ == "__main__":
     
 
     # # ----------------Random algorithm with routes---------------------
-    while counter < max_count:
-        game = rushhour.RushHour(in_file)
-        result = randomize_with_routes.run(game)
-        total.append(result.archive.moves)
-        counter += 1
-        result = None
-        game = None
-        print(counter)
+    # while counter < max_count:
+    #     game = rushhour.RushHour(in_file)
+    #     result = randomize_with_routes.run(game)
+    #     total.append(result.archive.moves)
+    #     counter += 1
+    #     result = None
+    #     game = None
+    #     print(counter)
     
 
     # # ------------------Breadthfirst algorithm with archive ------------
@@ -52,6 +52,11 @@ if __name__ == "__main__":
     #     breadth = breadthfirst.Breadthfirst(in_file)
     #     breadth.run()
     #     total.append(len(breadth.states))
+
+    #  ---------------- Branch & Bound with archive -------------
+    while counter < max_count:
+        branchandbound.run(in_file)
+
 
     print(Average(total))
     print(min(total))
