@@ -2,12 +2,12 @@ import csv
 import os
 import hashlib
 from code.Objects import board, car, rushhour, route
-from code.Algorithms import randomize, randomize_with_routes, breadthfirst_2
+from code.Algorithms import randomize, randomize_with_routes, breadthfirst_2, astar
 
 if __name__ == "__main__":
 
     source_folder = "code/Data/"
-    source_file = "Rushhour6x6_1.csv"
+    source_file = "Rushhour6x6_2.csv"
     # Initialize in_file
     in_file = f"{source_folder}{source_file}"
     # Initialize both the board and the game based on the infile.
@@ -46,5 +46,5 @@ if __name__ == "__main__":
     #         break
     #     archive_route.save_state(routerandom_game.cars)
 
-    breadth = breadthfirst_2.Breadthfirst(in_file)
-    breadth.run()
+    astarr = astar.Astar(in_file)
+    astarr.functionality()

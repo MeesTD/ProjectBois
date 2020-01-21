@@ -17,6 +17,7 @@ class RushHour():
         self.current_car = None
         self.red_car = self.choose_car('X')
         self.archive = Route()
+        self.f = 0
         
     # This function will load the list of cars from the input file.
     def load_cars(self, in_file):

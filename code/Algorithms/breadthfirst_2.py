@@ -23,7 +23,7 @@ class Breadthfirst(object):
         return self.states.pop(0)
     
 
-    def get_possibilities(self, car, car_list, game):
+    def get_possibilities(self, car, game):
         """
         Gets all the possible moves for the car.
         """
