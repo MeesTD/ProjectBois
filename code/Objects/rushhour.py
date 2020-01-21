@@ -4,7 +4,6 @@ from .route import Route
 import csv
 import copy
 import math
-import hashlib
 
 class RushHour():
     """
@@ -134,6 +133,3 @@ class RushHour():
                         else:
                             print(".",end="")         
                 print("")
-
-    def __hash__ (self):
-        return hash((self.cars.values()))

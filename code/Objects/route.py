@@ -1,6 +1,6 @@
 from . import car, rushhour, board
 import copy
-import uuid
+import math
 
 class Route(object):
 
@@ -12,30 +12,43 @@ class Route(object):
         self.moves += 1
         return True
 
+    # This method makes a key based on the rush hour object it recieves as input.
+    def make_key(self, rushhour):
+        key_build = []
+        name = None
+        for i in reversed(range(rushhour.game.size + 2)):
+            for j in range(rushhour.game.size + 2):
+                if i == 0 or i == rushhour.game.size + 1:
+                    key_build.append("-")
+                elif j == rushhour.game.size + 1 and i == math.floor(rushhour.game.size / 2) + 1:
+                    key_build.append(">")
+                elif j == 0 or j == rushhour.game.size + 1:
+                    key_build.append("|")
+                elif j < rushhour.game.size + 1 or j < rushhour.game.size + 1:
+                    for car in rushhour.cars.values():
+                        for l in range(len(car.xy)):
+                            if car.xy[l][0] == j and car.xy[l][1] == i:
+                                name = car.name
+                    if name != None:
+                        key_build.append(name)
+                        name = None
+                    else:
+                        key_build.append(".")         
+            key_build.append("\n")
+        separator = ','
+        key_string = separator.join(key_build)
+        return key_string.replace(',', '')
+
+
     # This method saves the current grid state to the archive
     def save_state(self, rushhour):
-        local_list = copy.deepcopy(rushhour.cars)
-        self.archive[hash(rushhour)] = local_list
-
-        return True
+        key = self.make_key(rushhour)
+        self.archive[key] = key
 
     # This method returns true if a grid state exists in the archive, else false.
     def get_state(self, rushhour):
-        local_check = rushhour.cars
-        for i in self.archive.items():
-            if str(local_check) == str(i[1]):
-                return True
+        key = self.make_key(rushhour)
+        check = self.archive.get(key, None)
+        if check != None:
+            return True
         return False
-        # try:
-        #     self.archive[hash(rushhour)]
-        #     print("Already in dict")
-        #     return True
-        # except KeyError:
-        #     print("Returning false")
-        #     return False
-        # for car in car_list.values():
-        #     check_list[car.name] = copy.deepcopy(car.xy)
-        # for check in self.archive.values():
-        #     if check_list == check:
-        #         return True
-        # return False
