@@ -103,6 +103,7 @@ class RushHour():
             steps = steps
         if self.check_route(self.current_car.name, direction, steps):
             self.current_car.set_coords(steps)
+            self.archive.save_state(self)
             self.archive.add_move()
             return True
         else:
@@ -120,6 +121,8 @@ class RushHour():
     def check_win(self):
         red_car_coords = self.red_car.get_coords("X")
         if red_car_coords[1] == self.game.get_winloc():
+            for i in self.archive.archive:
+                print (f"Move number:{self.archive.archive[i]}")
             return True
         else:
             return False

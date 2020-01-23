@@ -1,96 +1,15 @@
 import copy
 import queue
-from ..Objects import board, car, rushhour, route
-from .breadthfirst import Breadthfirst
+from ..Objects import board, car, rushhour, route, lookahead
+from .breadthfirst import get_possibilities
 from ..Objects.route import make_key
 import random
 
-class Astar(object):
-    """
-    Class for the A* algorithm
-    """
-    def __init__(self, infile):
-        self.first_state = rushhour.RushHour(infile)
-        self.open_list = []
-        self.closed_list = set()
-        self.infile = infile
-        self.moves = 0
-
-        # Initialize the first state
-        self.open_list.append(copy.deepcopy(self.first_state))
-
-        
-    def functionality(self):
-        """
-        Method that contains all the logic for the A star algorithm
-        """
-
-        # Creates a Breadthfirst instance to use the get possibilities method
-        a = Breadthfirst(self.infile)
-
-        # Runs while open list is not empty
-        count = 0
-        self.favourite_count = 0
-
-        while len(self.open_list) > 0 and count < 1500:
-            count += 1
-            # Gets the first state in the open list
-            current_state = self.open_list[0]
-            current_index = 0
-
-            # print("begin game")
-            # current_state.print_game(current_state.game, current_state)
-
-             # Checks if the current state is winning state
-            if current_state.check_win():
-                print(count, "( ͡ʘ ͜ʖ ͡ʘ)")
-                # print("Moves", self.moves)
-                break
-
-            # Removes the state from the open list and adds to closed list
-            self.open_list.pop(current_index)
-            str_current_state = make_key(current_state)
-            # str_current = make_key(current_state)
-            self.closed_list.add(str_current_state)
-          
-
-            # Updates the moves variable
-            self.moves +=1 
-
-            
-            
-            all_options = []
-            
-            # Loops through all the cars of the current state
-            for car in current_state.cars.values():
-                
-                # Gets the possibilities per car 
-                possibility = a.get_possibilities(car, current_state)
-
-                # If the possiblities are not an empty list append to list for all options
-                if possibility != []:
-                    all_options.append(possibility)
-
-            # Gets all the children of the current state 
-            all_children = self.make_children(current_state, all_options)
-
-            # Updates the f attribute of the children 
-            self.f_value(current_state, all_children, self.moves)
-
-            # Gets the child with the lowest f value and appends to open list
-            best_child = self.choose_child(all_children, self.closed_list)
-            print("BESTE MOVE", best_child.f)
-            best_child.print_game(best_child.game, best_child)
-            self.open_list.append(best_child)
-
-    print("YOU HAVE WON")
-
-    def make_children(self, current_state, all_options):
+def make_children(current_state, all_options):
         """
         Makes the children for the current state
         """
         all_children = []
-
         # Goes through the options per car
         for options_car in all_options:
             # Moves the car and creates a new state
@@ -99,9 +18,12 @@ class Astar(object):
                 child_game.move(move[0], move[1], move[2])
                 all_children.append(child_game)
 
+         # Updates the f attribute of the children 
+        f_value(current_state, all_children)
+
         return all_children
 
-    def f_value(self, current_state, all_children, moves):
+def f_value(current_state, all_children):
         """
         Calculates all the f value for all the children
         """
@@ -123,9 +45,82 @@ class Astar(object):
                         blocking_cars += 1
                     
             # Updates the f attribute of the child
-            child.f = blocking_cars + self.moves
+            child.f = blocking_cars + current_state.archive.moves
             
         return True
+
+
+class Astar(object):
+    """
+    Class for the A* algorithm
+    """
+    def __init__(self, infile):
+        self.first_state = rushhour.RushHour(infile)
+        self.open_list = []
+        self.closed_list = set()
+        self.infile = infile
+        self.moves = 0
+        self.lookahead = 5
+
+        # Initialize the first state
+        self.open_list.append(copy.deepcopy(self.first_state))
+
+        
+    def functionality(self):
+        """
+        Method that contains all the logic for the A star algorithm
+        """
+
+        # Runs while open list is not empty
+        count = 0
+        self.favourite_count = 0
+
+        while len(self.open_list) > 0 and count < 1500:
+            count += 1
+
+            # Gets the first state in the open list
+            current_index = 0
+            current_state = self.open_list.pop(current_index)
+
+            # print("begin game")
+            # current_state.print_game(current_state.game, current_state)
+
+             # Checks if the current state is winning state
+            if current_state.check_win():
+                print(count, "( ͡ʘ ͜ʖ ͡ʘ)")
+                # print("Moves", self.moves)
+                break
+
+            # Removes the state from the open list and adds to closed list
+            str_current_state = make_key(current_state)
+            self.closed_list.add(str_current_state)
+          
+
+            # Updates the moves variable
+            self.moves +=1 
+
+             
+            all_options = []
+            
+            # Loops through all the cars of the current state
+            for car in current_state.cars.values():
+                
+                # Gets the possibilities per car 
+                possibility = get_possibilities(car, current_state)
+
+                # If the possiblities are not an empty list append to list for all options
+                if possibility != []:
+                    all_options.append(possibility)
+
+            # Gets all the best children of the current state 
+            all_children = lookahead.lookahead(current_state, self.lookahead)
+
+            # Gets the child with the lowest f value and appends to open list
+            best_child = self.choose_child(all_children, self.closed_list)
+            
+
+            best_child.print_game(best_child.game, best_child)
+            self.open_list.append(best_child)
 
     def choose_child(self, all_children, closed_list):
         """
@@ -135,7 +130,6 @@ class Astar(object):
         length = len(all_children)
         index = random.randrange(1, length)
         best_child = all_children[index]
-        mlem = 0
     
         print(len(closed_list))
         # Loops through all the children
@@ -145,7 +139,6 @@ class Astar(object):
             
             if str_child in closed_list:
                 print("VROOOOOM")
-                print(mlem)
                 # Searches the best child 
             elif child.f < best_child.f: 
                 self.favourite_count += 1

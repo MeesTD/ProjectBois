@@ -1,6 +1,30 @@
 import copy
 from ..Objects import board, car, rushhour, route
 
+def get_possibilities(car, game):
+        """
+        Gets all the possible moves for the car.
+        """
+        # Initialize the variables necessary for this method.
+        possibilities = []
+        max_steps = game.game.size - car.length + 1
+        # Check current car orientation.
+        if car.get_orientation():
+            directions = ['L', 'R']
+        else:
+            directions = ['U', 'D']
+
+        # Loop over both possible directions and possible moves.
+        for direction in directions:
+            for step in range(1, max_steps):
+                # Check if the move is possible before making it.
+                if game.check_route(car.name, direction, step):
+                    single_possibility = []
+                    single_possibility = [str(car.name), str(direction), int(step)]
+                    possibilities.append(single_possibility)
+                
+        return possibilities
+
 class Breadthfirst(object):
     """
     THE Breadthfirst algorithm.
@@ -21,31 +45,6 @@ class Breadthfirst(object):
         """
 
         return self.states.pop(0)
-    
-
-    def get_possibilities(self, car, game):
-        """
-        Gets all the possible moves for the car.
-        """
-        # Initialize the variables necessary for this method.
-        possibilities = []
-        max_steps = self.first_state.game.size - car.length + 1
-        # Check current car orientation.
-        if car.get_orientation():
-            directions = ['L', 'R']
-        else:
-            directions = ['U', 'D']
-
-        # Loop over both possible directions and possible moves.
-        for direction in directions:
-            for step in range(1, max_steps):
-                # Check if the move is possible before making it.
-                if game.check_route(car.name, direction, step):
-                    single_possibility = []
-                    single_possibility = [str(car.name), str(direction), int(step)]
-                    possibilities.append(single_possibility)
-                
-        return possibilities
 
     def build_children(self, possibilities, state):
         """
@@ -73,7 +72,7 @@ class Breadthfirst(object):
             if not new_state.check_win():
                 for car in new_state.cars.values():
                     # Creates variable to check possibilities.
-                    check = self.get_possibilities(car, new_state.cars, new_state)
+                    check = get_possibilities(car, new_state)
                     # Refuse cars that cannot make a move.
                     if check != []:
                         all_possibilities.append(check)
