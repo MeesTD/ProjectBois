@@ -40,9 +40,9 @@ class Route(object):
         return True
 
     # This method saves the current grid state to the archive
-    def save_state(self, rushhour):
+    def save_state(self, rushhour, move_num):
         key = make_key(rushhour)
-        self.archive[key] = key
+        self.archive[key] = str(move_num,) + "\n" + key
 
     # This method returns true if a grid state exists in the archive, else false.
     def get_state(self, rushhour):

@@ -3,7 +3,7 @@ from ..Objects import board, car, rushhour, route
 
 class Breadthfirst(object):
     """
-    THE Breadthfirst algorithm.
+    The Breadthfirst algorithm.
     """
 
     def __init__(self, infile):
@@ -36,7 +36,7 @@ class Breadthfirst(object):
             directions = ['L', 'R']
         else:
             directions = ['U', 'D']
-
+        
         # Loop over both possible directions and possible moves.
         for direction in directions:
             for step in range(1, max_steps):
@@ -57,14 +57,13 @@ class Breadthfirst(object):
             # Creates a new instance of rushhour.
             new_game.move(i[0], i[1], i[2])
             if not self.archive.get_state(new_game):
-                self.archive.save_state(new_game)
+                self.archive.save_state(new_game, new_game.archive.moves)
                 self.states.append(new_game)
-
+        
     def run(self):
         i = 0
         while self.states and i < 10000:
             print(len(self.states))
-            print(i)
             i += 1
             all_possibilities = []
             new_state = self.get_next_state()
@@ -77,14 +76,13 @@ class Breadthfirst(object):
                     # Refuse cars that cannot make a move.
                     if check != []:
                         all_possibilities.append(check)
-                # Loops over all possibilities. 
+                # Loops over all possibilities.
                 for possibility in all_possibilities:
                     self.build_children(possibility, new_state)
             else:
                 new_state.print_game(new_state.game, new_state)
                 print("Won!", len(self.states))
                 break
-        new_state.print_game(new_state.game, new_state)
         print(f"Finished with {new_state.archive.moves} moves")
         if i > 9999:
             print("Couldn't finish the case within the time.")
