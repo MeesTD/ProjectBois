@@ -73,7 +73,7 @@ class Breadthfirst(object):
             if not new_state.check_win():
                 for car in new_state.cars.values():
                     # Creates variable to check possibilities.
-                    check = self.get_possibilities(car, new_state.cars, new_state)
+                    check = self.get_possibilities(car, new_state)
                     # Refuse cars that cannot make a move.
                     if check != []:
                         all_possibilities.append(check)
