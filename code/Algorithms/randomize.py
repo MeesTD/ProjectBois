@@ -5,7 +5,7 @@ from ..Objects import board, car, rushhour, route
 
 def randomize_car(cars):
     """
-    Randomly chooses the car out of the list of cars.  
+    Randomly chooses a car out of the list with all the cars.  
     """
     
     random_car = cars[random.choice(list(cars))]
@@ -23,10 +23,11 @@ def randomize_direction(car):
     orientation_h = ['L', 'R']
     orientation_v = ['U', 'D']
 
-    # Based on the direction of the car give random direction 1 of 2 lists
+    # If the orientation of the car is horizontal gives directions left and right
     if car.get_orientation():
         random_direction = random.choice(orientation_h)
-        
+    
+    # If the orientation of the car is vertical gives directions up and down  
     else:    
         random_direction = random.choice(orientation_v)
 
@@ -35,11 +36,13 @@ def randomize_direction(car):
 
 def randomize_steps(board, car):
     """
-    This method returns a random amount of steps a car can take.
-    This is based on its length.
+    This method calculates amount of steps a car can take, and chooses a random amount.
     """
-
+    
+    # Calculates the maximal amount of steps via the board length and car length
     max_steps = board - car.length
+    
+    # Chooses a random step between 1 and maximal steps
     random_step = random.randrange(1, max_steps)
 
     return random_step
@@ -47,18 +50,23 @@ def randomize_steps(board, car):
     
 def run(game):
     """
-    Algorithm that makes a random move based on the max steps of a random car.
+    Method that contains all the functionality for the random algorithm.
     """
 
     # Create a copy of the game that will be returned later
     new_game = copy.deepcopy(game)
 
+    # Checks if game is won or if game is passed 100000 moves
     while not new_game.check_win() and new_game.archive.moves < 100000:
+        
         # Choose a random car
         random_car = randomize_car(new_game.cars)
 
         # Make move with that car
         new_game.move(random_car.name , randomize_direction(random_car), randomize_steps(game.game.size, random_car))
-        
+    
+    # Prints the final board
     new_game.print_game(new_game.game, new_game)
+    
     return new_game
+    
