@@ -61,11 +61,8 @@ class Breadthfirst(object):
 
     def run(self):
         self.archive = route.Route()
-        i = 0
-        while self.states and i < 10000:
+        while self.states:
             print(len(self.states))
-            print(i)
-            i += 1
             all_possibilities = []
             new_state = self.get_next_state()
             # new_state.print_game(new_state.game, new_state)
@@ -86,5 +83,3 @@ class Breadthfirst(object):
                 break
         new_state.print_game(new_state.game, new_state)
         print(f"Finished with {new_state.archive.moves} moves")
-        if i > 9999:
-            print("Couldn't finish the case within the time.")
