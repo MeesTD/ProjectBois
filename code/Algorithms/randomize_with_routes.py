@@ -23,7 +23,7 @@ def run(input_game):
     archive = route.Route()
     game = input_game
 
-   # Checks if game is won or if game is passed 100000 moves
+    # Checks if game is won or if game is passed 100000 moves
     while not game.check_win() and game.archive.moves < 100000:
         
         # Make a copy of the game to revert to if the move made already existed
