@@ -17,6 +17,17 @@ class RushHour():
         self.red_car = self.choose_car('X')
         self.archive = Route()
         self.f = 0
+
+    def __eq__(self, other):
+        # print("hallooooo")
+        if isinstance(other, RushHour):
+            # print("oke")
+            print(other.cars)
+            print(self.cars)
+            if other.cars == self.cars:
+                return True
+
+        return False
         
     # This function will load the list of cars from the input file.
     def load_cars(self, in_file):

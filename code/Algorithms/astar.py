@@ -1,7 +1,9 @@
 import copy
 import queue
 from ..Objects import board, car, rushhour, route
-from .breadthfirst_2 import Breadthfirst
+from .breadthfirst import Breadthfirst
+from ..Objects.route import make_key
+import random
 
 class Astar(object):
     """
@@ -10,14 +12,13 @@ class Astar(object):
     def __init__(self, infile):
         self.first_state = rushhour.RushHour(infile)
         self.open_list = []
-        self.closed_list = []
+        self.closed_list = set()
         self.infile = infile
         self.moves = 0
-    
-
 
         # Initialize the first state
         self.open_list.append(copy.deepcopy(self.first_state))
+
         
     def functionality(self):
         """
@@ -28,27 +29,35 @@ class Astar(object):
         a = Breadthfirst(self.infile)
 
         # Runs while open list is not empty
-        while len(self.open_list) > 0:
-            
-            
+        count = 0
+        self.favourite_count = 0
 
+        while len(self.open_list) > 0 and count < 1500:
+            count += 1
             # Gets the first state in the open list
             current_state = self.open_list[0]
-
-            current_state.print_game(current_state.game, current_state)
             current_index = 0
+
+            # print("begin game")
+            # current_state.print_game(current_state.game, current_state)
+
+             # Checks if the current state is winning state
+            if current_state.check_win():
+                print(count, "( ͡ʘ ͜ʖ ͡ʘ)")
+                # print("Moves", self.moves)
+                break
 
             # Removes the state from the open list and adds to closed list
             self.open_list.pop(current_index)
-            self.closed_list.append(current_state)
+            str_current_state = make_key(current_state)
+            # str_current = make_key(current_state)
+            self.closed_list.add(str_current_state)
+          
 
             # Updates the moves variable
             self.moves +=1 
 
-            # Checks if the current state is winning state
-            if current_state.check_win():
-                print("Moves", self.moves)
-                break
+            
             
             all_options = []
             
@@ -70,10 +79,11 @@ class Astar(object):
 
             # Gets the child with the lowest f value and appends to open list
             best_child = self.choose_child(all_children, self.closed_list)
+            print("BESTE MOVE", best_child.f)
+            best_child.print_game(best_child.game, best_child)
             self.open_list.append(best_child)
 
-        
-
+    print("YOU HAVE WON")
 
     def make_children(self, current_state, all_options):
         """
@@ -122,16 +132,25 @@ class Astar(object):
         Method that chooses the best child with the lowest f value
         """
 
+        length = len(all_children)
+        index = random.randrange(1, length)
+        best_child = all_children[index]
+        mlem = 0
+    
+        print(len(closed_list))
         # Loops through all the children
         for child in all_children:
-            print(child, closed_list)
-            if not child in closed_list: 
-                # Makes the first child the best child
-                best_child = all_children[0]
+
+            str_child = make_key(child)
             
+            if str_child in closed_list:
+                print("VROOOOOM")
+                print(mlem)
                 # Searches the best child 
-                if child.f < best_child.f: 
-                    best_child = child.f
-    
+            elif child.f < best_child.f: 
+                self.favourite_count += 1
+                best_child = copy.deepcopy(child)
+                print(self.favourite_count, "FAVOURITE CHILD")
+        
         return best_child
 

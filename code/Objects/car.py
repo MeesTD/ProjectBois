@@ -55,3 +55,6 @@ class Car(object):
                 
     def __repr__(self):
         return f"{self.name} {self.orientation} {self.length} {self.xy}"
+
+    def __str__(self):
+        return f"{self.name} {self.orientation} {self.length} {self.xy}"
