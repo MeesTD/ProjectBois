@@ -1,6 +1,7 @@
 import random
 import copy
-from ..Objects import board, car, rushhour
+from ..Objects import board, car, rushhour, route
+
 
 def randomize_car(cars):
     """
@@ -13,6 +14,7 @@ def randomize_car(cars):
 
 
 def randomize_direction(car):
+
     """
     This method returns a random direction for a move based on the direction
     of the car.
@@ -43,20 +45,20 @@ def randomize_steps(board, car):
     return random_step
     
     
-def run(game, board):
+def run(game):
     """
     Algorithm that makes a random move based on the max steps of a random car.
     """
 
     # Create a copy of the game that will be returned later
     new_game = copy.deepcopy(game)
-    
-    # Choose a random car
-    random_car = randomize_car(game.cars)
 
-    # Make the move with the other variables
-    while True:
-        new_game.move(random_car.name, randomize_direction(random_car), randomize_steps(game.game.size, random_car))
-        if game.check_win():
-            game.print_game(board, new_game)
-    return game
+    while not new_game.check_win() and new_game.archive.moves < 100000:
+        # Choose a random car
+        random_car = randomize_car(new_game.cars)
+
+        # Make move with that car
+        new_game.move(random_car.name , randomize_direction(random_car), randomize_steps(game.game.size, random_car))
+        
+    new_game.print_game(new_game.game, new_game)
+    return new_game
