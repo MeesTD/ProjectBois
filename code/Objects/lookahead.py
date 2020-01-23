@@ -18,21 +18,21 @@ def lookahead (state, move_amount):
     states = []
     first_state = copy.deepcopy(state)
     states.append(first_state)
-    good_children = []
 
     # Go move_amount nodes deep into the tree.
     for i in range(len(states)):
         temp_state = states.pop()
+        possible_moves = []
         for j in range(move_amount):
 
-        
-        # Make a new move for each possible move in state.
-        for car in temp_state.cars.values():
-            possible_moves = breadthfirst.get_possibilities(car, temp_state)
+            # Make a new move for each possible move in state.
+            for car in temp_state.cars.values():
+                possible_moves.append(breadthfirst.get_possibilities(car, temp_state))
+
             new_states = astar.make_children(temp_state, possible_moves)
 
-        # Append the states 
-        for state in new_states:
-            states.append(state)
+            # Append the states 
+            for state in new_states:
+                states.append(state)
 
-    return good_children
+    return states

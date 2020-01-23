@@ -18,7 +18,7 @@ if __name__ == "__main__":
 
     # Initialize in_file
     source_folder = "code/Data/"
-    source_file = "RushHour6x6_1.csv"
+    source_file = "RushHour9x9_4.csv"
     in_file = f"{source_folder}{source_file}"
 
     # Initialize both the board and the game based on the infile.
@@ -58,8 +58,8 @@ if __name__ == "__main__":
     #         break
     #     archive_route.save_state(routerandom_game.cars)
 
-    astarr = astar.Astar(in_file)
-    astarr.functionality()
+    # astarr = astar.Astar(in_file)
+    # astarr.functionality()
     # while counter < max_count:
     #     game = rushhour.RushHour(in_file)
     #     result = randomize_with_routes.run(game)
@@ -71,10 +71,9 @@ if __name__ == "__main__":
     
 
     # ------------------Breadthfirst algorithm with archive ------------
-    # while counter < max_count:
-    # breadth = breadthfirst.Breadthfirst(in_file)
-    # breadth.run()
-    # total.append(len(breadth.states))
+    breadth = breadthfirst.Breadthfirst(in_file)
+    breadth.run()
+    total.append(len(breadth.states))
 
     # print(Average(total))
     # print(min(total))
