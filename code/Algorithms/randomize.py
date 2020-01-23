@@ -1,3 +1,11 @@
+###################################################################################################
+# randomize.py
+#
+# Zeno Degenkamp, Mats pijning, Mees drissen
+#
+# This file contains all the logic for random algorithm. It randomily chooses a car,
+# orientation, and amount of steps. 
+###################################################################################################
 import random
 import copy
 from ..Objects import board, car, rushhour, route
