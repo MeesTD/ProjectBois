@@ -103,6 +103,7 @@ class RushHour():
             steps = steps
         if self.check_route(self.current_car.name, direction, steps):
             self.current_car.set_coords(steps)
+            self.archive.save_state(self)
             self.archive.add_move()
             self.archive.append_move()
             return True
