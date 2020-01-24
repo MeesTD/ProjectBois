@@ -40,11 +40,17 @@ def calc_f_value(all_children, final_state):
             
                 # Loops through all the cars of the final state
                 for car2 in final_state.cars.values(): 
-            
-                    # Checks if the coords are not the same 
-                    if car.xy != car2.xy:
+                    
+                    if car.name == "X" and car2.name == "X":
                         
-                        wrong_cars += 1
+                        if car.xy == car2.xy:
+                            wrong_cars += 0.5
+                    else:
+                        
+                        # Checks if the coords are not the same 
+                        if car.xy != car2.xy:
+                        
+                            wrong_cars += 2
             
             # Updates the f attribute of the child object           
             child.f = wrong_cars + child.archive.move_amount
@@ -57,13 +63,15 @@ class Astar(object):
         self.first_state = rushhour.RushHour(infile)
         self.final_state = randomize.run(self.first_state)
         self.open_list = []
+        self.open_list_reversed = []
         self.closed_list = set()
         self.infile = infile
         self.moves = 0
-        self.lookahead_amount = 7
+        self.lookahead_amount = 4
 
         # Initialize the first state
         self.open_list.append(copy.deepcopy(self.first_state))
+        self.open_list_reversed.append(copy.deepcopy(self.final_state))
         
 
         
@@ -82,22 +90,22 @@ class Astar(object):
             # Gets the first state in the open list
             current_index = 0
             current_state = self.open_list.pop(current_index)
+            current_state_reversed = self.open_list_reversed.pop(current_index)
 
-            X_from_exit = current_state.game.size - int(current_state.red_car.xy[1][1] - 1)
-            # print(X_from_exit)
-            if current_state.check_route("X", "R", X_from_exit):
-                print("Check done.")
-                current_state.move("X", "R", X_from_exit)
-
+       
              # Checks if the current state is winning state
-            if current_state.check_win():
-                print(current_state.archive.move_amount, "( ͡ʘ ͜ʖ ͡ʘ)")
-                # print("Moves", self.moves)
+            if make_key(current_state) == make_key(current_state_reversed):
+                self.moves = current_state.archive.move_amount + current_state_reversed.archive.move_amount
+                print(self.moves, "( ͡ʘ ͜ʖ ͡ʘ)")
                 break
+              
 
             # Removes the state from the open list and adds to closed list
             str_current_state = make_key(current_state)
+            str_current_state_reversed = make_key(current_state_reversed)
+            
             self.closed_list.add(str_current_state)
+            #self.closed_list.add(str_current_state_reversed)
           
             
 
@@ -117,14 +125,43 @@ class Astar(object):
                     all_options.append(possibility)
 
             # Gets all the best children of the current state 
-            all_children = lookahead.lookahead(current_state, self.lookahead_amount, self.final_state)
+            all_children = lookahead.lookahead(current_state, self.lookahead_amount, current_state_reversed)
 
             # Gets the child with the lowest f value and appends to open list
             best_child = self.choose_child(all_children, self.closed_list)
-
+            
+            print("DIT IS DE NORMALE ROUTE")
             best_child.print_game(best_child.game, best_child)
             
             self.open_list.append(best_child)
+            
+            if best_child.check_win():
+                print(f"You've won with{best_child.archive.move_amount} moves!")
+                break
+            
+            
+            # ALL FUNCTIONS FOR REVERSED
+            
+            
+            for car in current_state_reversed.cars.values():
+                
+                # Gets the possibilities per car 
+                possibility = get_possibilities(car, current_state_reversed)
+                
+                # If the possiblities are not an empty list append to list for all options
+                if possibility != []:
+                    all_options.append(possibility)
+                
+            # Gets all the best children of the current state 
+            all_children = lookahead.lookahead(current_state_reversed, self.lookahead_amount, best_child)
+
+            # Gets the child with the lowest f value and appends to open list
+            best_child = self.choose_child(all_children, self.closed_list)
+            
+            print("DIT IS DE REVERSED ROUTE")
+            best_child.print_game(best_child.game, best_child)
+            
+            self.open_list_reversed.append(best_child)
             
 
     def choose_child(self, all_children, closed_list):
