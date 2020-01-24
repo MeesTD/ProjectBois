@@ -64,7 +64,7 @@ class Astar(object):
         self.closed_list = set()
         self.infile = infile
         self.moves = 0
-        self.lookahead_amount = 8
+        self.lookahead_amount = 5
 
         # Initialize the first state
         self.open_list.append(copy.deepcopy(self.first_state))
