@@ -9,10 +9,10 @@ def Average(lst):
     return sum(lst)/len(lst)
 
 if __name__ == "__main__":
-
+    # Maak de UX beter. Vraag om input voor debug + printen en welke case eventueel.
     # Initialize in_file
     source_folder = "code/Data/"
-    source_file = "RushHour6x6_2.csv"
+    source_file = "RushHour6x6_3.csv"
     in_file = f"{source_folder}{source_file}"
 
     # Initialize both the board and the game based on the infile.
@@ -52,8 +52,8 @@ if __name__ == "__main__":
     #         break
     #     archive_route.save_state(routerandom_game.cars)
 
-    # astarr = astar.Astar(in_file)
-    # astarr.functionality()
+    astarr = astar.Astar(in_file)
+    astarr.functionality()
 
 
     # while counter < max_count:
@@ -67,8 +67,8 @@ if __name__ == "__main__":
     
 
     # ------------------Breadthfirst algorithm with archive ------------
-    breadth = breadthfirst.Breadthfirst(in_file)
-    breadth.run()
+    # breadth = breadthfirst.Breadthfirst(in_file)
+    # breadth.run()
     # total.append(len(breadth.states))
 
     # print(Average(total))

@@ -9,7 +9,7 @@ def get_next_state(states):
 
         return states.pop()
 
-def lookahead (state, move_amount):
+def lookahead (state, move_amount, algorithm):
     """
     This method looks ahead for move_amount times to return a move which will lead to 
     the move with the lowest f value.
@@ -29,7 +29,7 @@ def lookahead (state, move_amount):
             for car in temp_state.cars.values():
                 possible_moves.append(breadthfirst.get_possibilities(car, temp_state))
 
-            new_states = astar.make_children(temp_state, possible_moves)
+            new_states = astar.make_children(temp_state, possible_moves, algorithm)
 
             # Append the states 
             for state in new_states:
