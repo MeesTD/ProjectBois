@@ -1,13 +1,11 @@
 import copy
 import queue
-from .Heuristics.closethedistance import calc_h as closethedistance
-from .Heuristics.pathfree import calc_h as pathfree
 from ..Objects import board, car, rushhour, route, lookahead
 from .breadthfirst import get_possibilities
 from ..Objects.route import make_key
 import random
 
-def make_children(current_state, all_options, algorithm):
+def make_children(current_state, all_options):
         """
         Makes the children for the current state
         """
@@ -21,16 +19,39 @@ def make_children(current_state, all_options, algorithm):
                 all_children.append(child_game)
 
          # Updates the f attribute of the children 
-        calc_f_value(all_children, algorithm)
+        calc_f_value(all_children)
 
         return all_children
 
-def calc_f_value(all_children, algorithm):
+def calc_f_value(all_children):
         """
         Calculates all the f value for all the children
-        """ 
-
+        """
+        blocking_cars = 0
         
+        # Loops through all the children
+        for child in all_children:
+
+            blocking_cars = 0
+            
+            # Loops through all the cars of the child
+            for car in child.cars.values():
+                
+                # Only check other cars than red car
+                if not car.name == "X":
+               
+                    # Checks if cars are in the way of the red car and updates blocking car
+                    if car.xy[0][1]  == child.red_car.xy[0][1] or car.xy[1][1] == child.red_car.xy[0][1]:
+                        blocking_cars += 1
+
+                    # Check if the car has a length of 3
+                    if car.length == 3:
+                        # Check if that car is blocking the red car
+                        if car.xy[2][1] == child.red_car.xy[0][1]:
+                            blocking_cars += 1
+                    
+            # Updates the f attribute of the child
+            child.f = blocking_cars + child.archive.moves
 
 
 class Astar(object):
@@ -57,13 +78,6 @@ class Astar(object):
         # Runs while open list is not empty
         count = 0
         self.favourite_count = 0
-        print("Which algorithm would you like to run?")
-        algorithms = ["pathfree", "closethedistance"]
-        for algorithm in algorithms:
-            print(algorithms.index(algorithm),":", algorithm)
-        print("Choose the number.")
-        algorithm = input(">")
-
 
         while len(self.open_list) > 0 and count < 1500:
             count += 1
@@ -74,7 +88,6 @@ class Astar(object):
 
             # print("begin game")
             # current_state.print_game(current_state.game, current_state)
-
 
             X_from_exit = current_state.game.size - int(current_state.red_car.xy[1][1] - 1)
             print(X_from_exit)
@@ -109,7 +122,7 @@ class Astar(object):
                     all_options.append(possibility)
 
             # Gets all the best children of the current state 
-            all_children = lookahead.lookahead(current_state, self.lookahead_amount, algorithm)
+            all_children = lookahead.lookahead(current_state, self.lookahead_amount)
 
             # Gets the child with the lowest f value and appends to open list
             best_child = self.choose_child(all_children, self.closed_list)

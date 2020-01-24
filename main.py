@@ -3,7 +3,7 @@ import os
 import hashlib
 import copy
 from code.Objects import board, car, rushhour, route
-from code.Algorithms import randomize, randomize_with_routes, breadthfirst, astar
+from code.Algorithms import randomize, randomize_with_routes, breadthfirst, astar, astarrevers
 
 def Average(lst):
     return sum(lst)/len(lst)
@@ -21,7 +21,7 @@ if __name__ == "__main__":
 
     # Initialize counter, max & total to use when running algorithms:
     counter = 0
-    max_count = 25
+    max_count = 50
     total = []
 
 
@@ -52,8 +52,14 @@ if __name__ == "__main__":
     #         break
     #     archive_route.save_state(routerandom_game.cars)
 
+    # ------- A* algorithm ---------------- 
     astarr = astar.Astar(in_file)
     astarr.functionality()
+
+    # ------- A* reversed algorithm ------------
+    astarr = astarrevers.Astar(in_file)
+    astarr.functionality()
+
 
 
     # while counter < max_count:
@@ -70,7 +76,12 @@ if __name__ == "__main__":
     # breadth = breadthfirst.Breadthfirst(in_file)
     # breadth.run()
     # total.append(len(breadth.states))
+    #astar = breadthfirst.Breadthfirst(in_file)
+    #breadth.run()
+    
+    if counter < max_count:
+        total.append(len(astarr.moves))
 
-    # print(Average(total))
-    # print(min(total))
-    # print(max(total))
+        print(Average(total))
+        print(min(total))
+        print(max(total))

@@ -65,7 +65,7 @@ def run(game):
     new_game = copy.deepcopy(game)
 
     # Checks if game is won or if game is passed 100000 moves
-    while not new_game.check_win() and new_game.archive.moves < 100000:
+    while not new_game.check_win() and new_game.archive.move_amount < 100000:
         
         # Choose a random car
         random_car = randomize_car(new_game.cars)
