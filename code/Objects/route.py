@@ -37,7 +37,7 @@ class Route(object):
         self.moves = []
 
 
-    def add_move(self):
+    def add_move(self, carname, direction, steps):
         self.move_amount += 1
         return True
 
@@ -54,7 +54,3 @@ class Route(object):
         if check != None:
             return True
         return False
-
-    # This method will append a single move to the list of moves
-    def append_move(self, carname, direction, steps):
-        # TODO
