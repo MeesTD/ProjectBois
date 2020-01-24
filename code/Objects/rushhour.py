@@ -17,7 +17,7 @@ class RushHour():
         self.red_car = self.choose_car('X')
         self.archive = Route()
         self.f = 0
-        self.output_name = "6x6_1_output.csv"
+        self.output_name = "6x6_2_output.csv"
 
     def __eq__(self, other):
         # print("hallooooo")

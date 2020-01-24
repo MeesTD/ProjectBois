@@ -12,7 +12,7 @@ if __name__ == "__main__":
 
     # Initialize in_file
     source_folder = "code/Data/"
-    source_file = "RushHour6x6_1.csv"
+    source_file = "RushHour6x6_2.csv"
     in_file = f"{source_folder}{source_file}"
 
     # Initialize both the board and the game based on the infile.
