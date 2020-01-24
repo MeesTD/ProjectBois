@@ -17,6 +17,7 @@ class RushHour():
         self.red_car = self.choose_car('X')
         self.archive = Route()
         self.f = 0
+        self.output_name = "6x6_1_output.csv"
 
     def __eq__(self, other):
         # print("hallooooo")
@@ -104,8 +105,7 @@ class RushHour():
         if self.check_route(self.current_car.name, direction, steps):
             self.current_car.set_coords(steps)
             self.archive.save_state(self)
-            self.archive.add_move()
-            self.archive.append_move()
+            self.archive.add_move(carname, steps)
             return True
         else:
             return False
@@ -123,11 +123,12 @@ class RushHour():
         red_car_coords = self.red_car.get_coords("X")
         if red_car_coords[1] == self.game.get_winloc():
             # Write a CSV based on the archive.moves
-            # TODO
+            self.write_output(self.archive)
             return True
         else:
             return False
 
+    # This method prints the game board based on the current locations of the cars
     def print_game(self, board, game):
         name = None
         for i in reversed(range(board.size + 2)):
@@ -149,3 +150,12 @@ class RushHour():
                         else:
                             print(".",end="")         
                 print("")
+    
+    # This method writes a csv file which shows the moves made in the game
+    def write_output(self, archive):
+        with open(self.output_name, 'w', newline = '') as csvfile:
+            writer = csv.writer(csvfile)
+            writer.writerow(["car", "steps"])
+            for row in archive.moves:
+                writer.writerow([row[0], row[1]])
+        

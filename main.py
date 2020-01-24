@@ -52,8 +52,8 @@ if __name__ == "__main__":
     #         break
     #     archive_route.save_state(routerandom_game.cars)
 
-    astarr = astar.Astar(in_file)
-    astarr.functionality()
+    # astarr = astar.Astar(in_file)
+    # astarr.functionality()
 
 
     # while counter < max_count:
@@ -67,8 +67,8 @@ if __name__ == "__main__":
     
 
     # ------------------Breadthfirst algorithm with archive ------------
-    # breadth = breadthfirst.Breadthfirst(in_file)
-    # breadth.run()
+    breadth = breadthfirst.Breadthfirst(in_file)
+    breadth.run()
     # total.append(len(breadth.states))
 
     # print(Average(total))

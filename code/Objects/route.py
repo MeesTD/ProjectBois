@@ -36,11 +36,13 @@ class Route(object):
         self.archive = {}
         self.moves = []
 
-
-    def add_move(self, carname, direction, steps):
+    # This method adds 1 to move_amount for a move made and also appends the car and it's steps to the list of moves.
+    def add_move(self, carname, steps):
         self.move_amount += 1
-        return True
-
+        move_list = []
+        move_list.append(carname)
+        move_list.append(steps)
+        self.moves.append(move_list)
 
     # This method saves the current grid state to the archive
     def save_state(self, rushhour):
