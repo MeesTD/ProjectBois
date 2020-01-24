@@ -104,6 +104,7 @@ class RushHour():
         if self.check_route(self.current_car.name, direction, steps):
             self.current_car.set_coords(steps)
             self.archive.add_move()
+            self.archive.append_move()
             return True
         else:
             return False
@@ -120,6 +121,8 @@ class RushHour():
     def check_win(self):
         red_car_coords = self.red_car.get_coords("X")
         if red_car_coords[1] == self.game.get_winloc():
+            # Write a CSV based on the archive.moves
+            # TODO
             return True
         else:
             return False

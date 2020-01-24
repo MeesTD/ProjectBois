@@ -32,11 +32,13 @@ def make_key(rushhour):
 class Route(object):
 
     def __init__ (self):
-        self.moves = 0 
+        self.move_amount = 0 
         self.archive = {}
+        self.moves = []
+
 
     def add_move(self):
-        self.moves += 1
+        self.move_amount += 1
         return True
 
 
@@ -52,3 +54,7 @@ class Route(object):
         if check != None:
             return True
         return False
+
+    # This method will append a single move to the list of moves
+    def append_move(self, carname, direction, steps):
+        # TODO
