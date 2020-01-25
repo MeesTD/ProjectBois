@@ -1,4 +1,4 @@
-#  Algorithms
+## Algorithms
 This folder contains all the files for the algorithms. The algorithms are random, 
 random with use of an archive (Smart Caby algorithm), breadfirst, breadfirst with a priority queue. 
 
