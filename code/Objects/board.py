@@ -16,11 +16,6 @@ class Board(object):
     """
     
     def __init__(self, input_file):
-        """
-        Initializes a board object with use of the input file
-        """
-        
-        # Board properties
         self.size = self.load_grid(input_file)
         self.grid = []
         self.win_location = self.set_winlocation(self.size)

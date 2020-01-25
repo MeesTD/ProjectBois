@@ -1,3 +1,10 @@
+###################################################################################################
+# rushhour.py
+#
+# Zeno Degenkamp, Mats pijning, Mees drissen
+#
+# This file contains the rushhour object
+###################################################################################################
 from .car import Car
 from .board import Board
 from .route import Route
@@ -10,6 +17,7 @@ class RushHour():
     This class holds all information relevant to the current game of Rush Hour.
     Including the board (grid) and its cars.
     """
+    
     def __init__ (self, in_file):
         self.game = Board(in_file)
         self.cars = self.load_cars(in_file)
@@ -20,9 +28,10 @@ class RushHour():
         self.output_name = "6x6_3_output.csv"
 
     def __eq__(self, other):
-        # print("hallooooo")
+        """
+        MOET NOG IETS KOMEN
+        """
         if isinstance(other, RushHour):
-            # print("oke")
             print(other.cars)
             print(self.cars)
             if other.cars == self.cars:
