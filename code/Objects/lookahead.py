@@ -1,6 +1,6 @@
 import copy
 from . import route, rushhour, car
-from ..Algorithms import breadthfirst, astar
+from ..Algorithms import breadthfirst, breadfirst_prio
 
 def get_next_state(states):
         """
@@ -29,7 +29,7 @@ def lookahead (state, move_amount, final_state):
             for car in temp_state.cars.values():
                 possible_moves.append(breadthfirst.get_possibilities(car, temp_state))
 
-            new_states = astar.make_children(temp_state, possible_moves, final_state)
+            new_states = make_children(temp_state, possible_moves, final_state)
 
             # Append the states 
             for state in new_states:

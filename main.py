@@ -3,16 +3,16 @@ import os
 import hashlib
 import copy
 from code.Objects import board, car, rushhour, route
-from code.Algorithms import randomize, randomize_with_routes, breadthfirst, astar, astarrevers
+from code.Algorithms import randomize, randomize_with_routes, breadthfirst, breadthfirst_prio, astarrevers
 
 def Average(lst):
     return sum(lst)/len(lst)
 
 if __name__ == "__main__":
-    # Maak de UX beter. Vraag om input voor debug + printen en welke case eventueel.
+
     # Initialize in_file
     source_folder = "code/Data/"
-    source_file = "RushHour6x6_3.csv"
+    source_file = "RushHour6x6_1.csv"
     in_file = f"{source_folder}{source_file}"
 
     # Initialize both the board and the game based on the infile.
@@ -27,11 +27,11 @@ if __name__ == "__main__":
 
     # #-----------------Regular random algorithm-----------------------------
     # # This algorithm may or may not solve the puzzle
-    # while counter < max_count:
-    #     result = randomize.run(game)
-    #     total.append(result.archive.moves)
-    #     counter += 1
-    #     print("Won game.")
+    while counter < max_count:
+        result = randomize.run(game)
+        total.append(result.archive.moves)
+        counter += 1
+        print("Won game.")
 
 
     
@@ -52,11 +52,6 @@ if __name__ == "__main__":
     #         break
     #     archive_route.save_state(routerandom_game.cars)
 
-    # ------- A* algorithm ---------------- 
-    astarr = astar.Astar(in_file)
-    astarr.functionality()
-
-    # ------- A* reversed algorithm ------------
     astarr = astarrevers.Astar(in_file)
     astarr.functionality()
 
@@ -73,9 +68,6 @@ if __name__ == "__main__":
     
 
     # ------------------Breadthfirst algorithm with archive ------------
-    # breadth = breadthfirst.Breadthfirst(in_file)
-    # breadth.run()
-    # total.append(len(breadth.states))
     #astar = breadthfirst.Breadthfirst(in_file)
     #breadth.run()
     
