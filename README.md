@@ -2,11 +2,11 @@
 
 Rush Hous is een schuifpuzzel, waarbij het doel is om de rode auto naar de uitgang te verplaatsen door andere auto's te verplaatsen en dit in zo min mogelijk stappen te doen. De auto's verschillen van oriëntatie en mogen alleen in de oorspronkelijke richting bewegen. De auto's komen voor in verschillende formaten: auto's van 2 blokjes en trucks van 3 blokjes. Ook de borden kunnen verschillen van formaten, zo bestaan er borden van 6x6, 9x9 en 12x12. 
 
-![Bord6x6](doc/1.png)
+![Bord6x6](doc/1.jpg)
 
-![Bord9x9](doc/2.png)
+![Bord9x9](doc/2.jpg)
 
-![Bord12x12](doc/3.png)
+![Bord12x12](doc/3.jpg)
 
 ## Aan de slag
 ## Browser Support
