@@ -12,7 +12,7 @@ The car object contains the information that is relevant for the cars. The infor
 This is a method that is used to look a head a given amount of moves. This is mainly used to choose the "best" moves.
 
 #### Route
-This route object contains all the information of the route. The route objects has an amount of moves, the archive and the moves. §
+This route object contains all the information of the route. The route objects has an amount of moves, the archive and the moves. 
 
 
 #### Rushhour
