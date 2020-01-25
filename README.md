@@ -35,10 +35,10 @@ De verschillende algorimtes kunnen worden aangeroepen door main.py aan te roepen
 ### Structuur 
 Deze lijst beschrijft alle belangrijke mappen en files van het project, en hun locaties:
 
--**/code**: bevat alle code van dit project.
-	- **/code/algorithms**: bevat de random, breadthfirst en astar algoritmes.
-	- **/code/data**: bevat alle cvs bestanden met auto's van alle borden.
-	- **/code/objects**: bevat de objecten board, car, lookahead, route en rushhour.
+* **/code**: bevat alle code van dit project.
+	* **/code/algorithms**: bevat de random, breadthfirst en astar algoritmes.
+	* **/code/data**: bevat alle cvs bestanden met auto's van alle borden.
+	* **/code/objects**: bevat de objecten board, car, lookahead, route en rushhour.
 
 ### Auteurs
 - Mees van drissen
