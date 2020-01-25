@@ -8,6 +8,7 @@
 import os
 import math
 
+
 class Board(object):
     """
     The board class will initiate a grid which consists of a matrix which consists of a list of lists.
@@ -83,11 +84,13 @@ class Board(object):
         
         return win_coords
 
+    
     def get_winloc(self):
         """
         Gets the win location of the board
         """
         return self.win_location
 
+    
     def __repr__(self):
         return f"{self.win_location} {self.grid} {self.size}"
