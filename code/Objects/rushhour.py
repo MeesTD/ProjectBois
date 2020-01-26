@@ -12,11 +12,13 @@ import csv
 import copy
 import math
 
+
 class RushHour():
     """
     This class holds all information relevant to the current game of Rush Hour.
     Including the board (grid) and its cars.
     """
+    
     
     def __init__ (self, in_file):
         self.game = Board(in_file)
