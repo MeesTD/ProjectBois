@@ -14,8 +14,11 @@ def make_key(rushhour):
     """
     This method makes a key based on the rush hour object it recieves as input.
     """
+    
     key_build = []
     name = None
+    
+    
     for i in reversed(range(rushhour.game.size + 2)):
         for j in range(rushhour.game.size + 2):
             if i == 0 or i == rushhour.game.size + 1:

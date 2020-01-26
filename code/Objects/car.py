@@ -9,7 +9,7 @@ class Car(object):
     """
     This class holds the information that is relevant for cars.
     It will hold the name, orientation, starting (and later current)
-    coördinates and its length.
+    coördinates and its length
     """
 
     def __init__ (self, name, orientation, x, y, length):
@@ -23,7 +23,9 @@ class Car(object):
 
 
     def get_orientation(self):
-        """ This method checks the orientation of the car, whether it's horizontal or vertical"""
+        """ 
+        This method checks the orientation of the car, whether it's horizontal or vertical
+        """
         
         if self.orientation == " H":
             return True
@@ -31,13 +33,17 @@ class Car(object):
 
 
     def get_coords(self, name):
-        """ This method gets the location of the car that is selected"""
+        """
+        This method gets the location of the car that is selected
+        """
         
         return self.xy
 
     
     def make_coords(self, x, y):
-        """ This method creates the car coordinates given its length"""
+        """
+        This method creates the car coordinates given its length
+        """
         
         xy = []
         
@@ -59,7 +65,9 @@ class Car(object):
 
 
     def set_coords(self, steps):
-        """ This method changes the coördinates for the selected car"""
+        """
+        This method changes the coördinates for the selected car
+        """
         
         # Loops through the length of the coords
         for i in range(len(self.xy)):

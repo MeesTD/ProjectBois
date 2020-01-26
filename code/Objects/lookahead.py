@@ -12,7 +12,7 @@ from ..Algorithms import breadthfirst, breadfirst_prio
 
 def get_next_state(states):
         """
-        Gets the next state from the list.
+        Gets the next state from the list
         """
 
         return states.pop()
@@ -21,7 +21,7 @@ def get_next_state(states):
 def lookahead (state, move_amount, final_state):
     """
     This method looks ahead for move_amount times to return a move which will lead to 
-    the move with the lowest f value.
+    the move with the lowest f value
     """
     
     #  Initiate values
