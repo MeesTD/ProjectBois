@@ -1,7 +1,7 @@
 ###################################################################################################
 # car.py
 #
-# Zeno Degenkamp, Mats pijning, Mees drissen
+# Zeno Degenkamp, Mats Pijning, Mees Drissen
 #
 # This file contains the car object
 ###################################################################################################
@@ -48,7 +48,7 @@ class Car(object):
         xy = []
         
         # Loops the amount the length of the car has
-        for j in range(self.length):
+        for length in range(self.length):
             
             # Retreives the coords for the car
             temp_coords = []
@@ -70,13 +70,13 @@ class Car(object):
         """
         
         # Loops through the length of the coords
-        for i in range(len(self.xy)):
+        for current in range(len(self.xy)):
             
             # Changes the coords depending on the orientation
             if self.get_orientation():
-                self.xy[i][0] += steps
+                self.xy[current][0] += steps
             else:
-                self.xy[i][1] += steps
+                self.xy[current][1] += steps
         
         return True
              

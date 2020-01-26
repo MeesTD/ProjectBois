@@ -1,7 +1,7 @@
 ###################################################################################################
 # rushhour.py
 #
-# Zeno Degenkamp, Mats pijning, Mees drissen
+# Zeno Degenkamp, Mats Pijning, Mees Drissen
 #
 # This file contains the rushhour object
 ###################################################################################################
@@ -57,7 +57,7 @@ class RushHour():
         loc_steps = int(steps)
 
         # Checks the coordinates of all cars for each step the user wants to take
-        for i in range(abs(loc_steps)):
+        for step in range(abs(loc_steps)):
             
             # If a user goes left or down steps has to be negative, because of board index
             if direction == "R" or direction == "L":
@@ -184,25 +184,38 @@ class RushHour():
         """
         This method prints the game board based on the current locations of the cars
         """
+        # Initialiaze a variable to be used later.
         name = None
-        for i in reversed(range(board.size + 2)):
-                for j in range(board.size + 2):
-                    if i == 0 or i == board.size + 1:
+
+        # Loop over the X and Y axis.
+        for Y in reversed(range(board.size + 2)):
+                for X in range(board.size + 2):
+                    
+                    # Print the top of the grid
+                    if Y == 0 or Y == board.size + 1:
                         print("-", end="")
-                    elif j == board.size + 1 and i == math.floor(board.size / 2) + 1:
+                    #  Print the exit.
+                    elif X == board.size + 1 and X == math.floor(board.size / 2) + 1:
                         print(">", end="")
-                    elif j == 0 or j == board.size + 1:
+                    #  Print the sides of the grid.
+                    elif X == 0 or X == board.size + 1:
                         print("|", end="")
-                    elif j < board.size + 1 or j < board.size + 1:
+
+                    # Print the inside of the grid.
+                    elif X < board.size + 1 or X < board.size + 1:
+                        # Check if the current coords match the ones of the cars.
                         for car in game.cars.values():
-                            for l in range(len(car.xy)):
-                                if car.xy[l][0] == j and car.xy[l][1] == i:
+                            for length in range(len(car.xy)):
+                                if car.xy[length][0] == X and car.xy[length][1] == Y:
                                     name = car.name
+                        # If it matches one of the cars, print it.
                         if name != None:
                             print(name, end="")
                             name = None
+                        # If it doesn't print an empty grid point
                         else:
-                            print(".",end="")         
+                            print(".",end="") 
+                # End the current X-axis. 
                 print("")
     
     

@@ -1,7 +1,7 @@
 ###################################################################################################
 # route.py
 #
-# Zeno Degenkamp, Mats pijning, Mees drissen
+# Zeno Degenkamp, Mats Pijning, Mees Drissen
 #
 # This file contains the route object
 ###################################################################################################
@@ -14,29 +14,41 @@ def make_key(rushhour):
     """
     This method makes a key based on the rush hour object it recieves as input.
     """
-    
+    # Initialize necessary values.
     key_build = []
     name = None
     
-    
-    for i in reversed(range(rushhour.game.size + 2)):
-        for j in range(rushhour.game.size + 2):
-            if i == 0 or i == rushhour.game.size + 1:
+    #  Loop over the X and Y axis of the grid. 
+    for Y in reversed(range(rushhour.game.size + 2)):
+        for X in range(rushhour.game.size + 2):
+
+            # Append the top and bottom of the board.
+            if Y == 0 or Y == rushhour.game.size + 1:
                 key_build.append("-")
-            elif j == rushhour.game.size + 1 and i == math.floor(rushhour.game.size / 2) + 1:
+            # Append the exit of the board.
+            elif X == rushhour.game.size + 1 and Y == math.floor(rushhour.game.size / 2) + 1:
                 key_build.append(">")
-            elif j == 0 or j == rushhour.game.size + 1:
+            # Append the sides.
+            elif X == 0 or X == rushhour.game.size + 1:
                 key_build.append("|")
-            elif j < rushhour.game.size + 1 or j < rushhour.game.size + 1:
+            
+            # Append the inside of the grid.
+            elif X < rushhour.game.size + 1 or X < rushhour.game.size + 1:
                 for car in rushhour.cars.values():
-                    for l in range(len(car.xy)):
-                        if car.xy[l][0] == j and car.xy[l][1] == i:
+
+                    # Check if the current car matches the current coords.
+                    for length in range(len(car.xy)):
+                        if car.xy[length][0] == X and car.xy[length][1] == Y:
                             name = car.name
+                # append the name of the car at these coords.
                 if name != None:
                     key_build.append(name)
                     name = None
+                
+                # If there is no car print a ".".
                 else:
-                    key_build.append(".")         
+                    key_build.append(".") 
+        # Finished a X- axis.
         key_build.append("\n")
     separator = ','
     key_string = separator.join(key_build)
@@ -48,6 +60,7 @@ class Route(object):
     """
 
     def __init__ (self):
+        # Initialize a move amount int, an archive for keys and list for moves made.
         self.move_amount = 0 
         self.archive = {}
         self.moves = []

@@ -1,7 +1,7 @@
 ###################################################################################################
 # board.py
 #
-# Zeno Degenkamp, Mats pijning, Mees drissen
+# Zeno Degenkamp, Mats Pijning, Mees Drissen
 #
 # This file contains the board object
 ###################################################################################################
@@ -21,15 +21,15 @@ class Board(object):
         self.win_location = self.set_winlocation(self.size)
         
         # Creates the y-coords based on the size of the board
-        for i in range(self.size):
+        for Y in range(self.size):
             
-            coordsY = i + 1
+            coordsY = Y + 1
             X_axis = []
             
             # Creates the x-coords based on the size of the board
-            for j in range(self.size):
+            for X in range(self.size):
                 
-                coordsX = j + 1
+                coordsX = X + 1
                 
                 # Creates the points with a X and a Y coord
                 totalcords = [coordsY, coordsX] 
