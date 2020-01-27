@@ -18,7 +18,7 @@ def get_next_state(states):
         return states.pop()
 
 
-def lookahead(state, move_amount, final_state):
+def lookahead(state, move_amount):
     """
     This method looks ahead for move_amount times to return a move which will lead to 
     the move with the lowest f value

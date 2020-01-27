@@ -10,7 +10,7 @@ def Average(lst):
 if __name__ == "__main__":
 
     # Initialize in_file
-    source_folder = "/data"
+    source_folder = "data/"
     source_file = "RushHour6x6_1.csv"
     in_file = f"{source_folder}{source_file}"
 
@@ -20,7 +20,7 @@ if __name__ == "__main__":
 
     # Initialize counter, max & total to use when running algorithms:
     counter = 0
-    max_count = 10
+    max_count = 250
     total = []
 
 
@@ -54,8 +54,8 @@ if __name__ == "__main__":
     #         break
     #     archive_route.save_state(routerandom_game.cars)
 
-    astarr = astarreverse.Astar(in_file)
-    astarr.functionality()
+    #astarr = astarreverse.Astar(in_file)
+    #astarr.functionality()
 
 
 
@@ -70,10 +70,19 @@ if __name__ == "__main__":
     
 
     # ------------------Breadthfirst algorithm with archive ------------
-    #astar = breadthfirst.Breadthfirst(in_file)
-    #breadth.run()
+     
     
-    with open("Random6x6_1", 'w', newline = '') as csvfile:
+    while counter < max_count:
+        astar = breadthfirst_prio.Astar(in_file)
+        result = astar.functionality()
+        totalrow = []
+        totalrow.append(counter)
+        totalrow.append(result.archive.move_amount)
+        total.append(totalrow)
+        counter += 1
+        print("Won game.")
+    
+    with open("Breadthfirst_prio6x6_1.csv", 'w', newline = '') as csvfile:
             writer = csv.writer(csvfile)
             writer.writerow(["Run number", "result"])
             for row in total:

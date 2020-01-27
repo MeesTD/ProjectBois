@@ -72,7 +72,7 @@ def x_checker(current_state):
     
     # Checks if the red car is able to move out the board
     X_from_exit = current_state.game.size - int(current_state.red_car.xy[1][0])
-    print(X_from_exit)
+
     if current_state.check_route("X", "R", X_from_exit):
         current_state.move("X", "R", X_from_exit)
         return True
@@ -115,12 +115,12 @@ class Astar(object):
             
             # Checks if red car is able to move to win location
             if x_checker(current_state):
-                print("Win move is mogelijk")
+                #print("Win move is mogelijk")
+                pass
             
             # Checks if the current state is winning state
             if current_state.check_win():
-                print(current_state.archive.moves, "( ͡ʘ ͜ʖ ͡ʘ)")
-                break
+                return current_state
                     
             # Removes the state from the open list and adds to closed list
             str_current_state = make_key(current_state)
@@ -142,11 +142,11 @@ class Astar(object):
                     all_options.append(possibility)
 
             # Gets all the best children of the current state 
-            all_children = lookahead.lookahead(current_state, self.lookahead_amount)
+            all_children = lookahead.lookahead(current_state, self.lookahead_amount, )
 
             # Gets the child with the lowest f value and prints it and appends to open list
             best_child = self.choose_child(all_children, self.closed_list)
-            best_child.print_game(best_child.game, best_child)
+            #best_child.print_game(best_child.game, best_child)
             self.open_list.append(best_child)
 
 
