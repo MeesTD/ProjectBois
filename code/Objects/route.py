@@ -54,6 +54,7 @@ def make_key(rushhour):
     key_string = separator.join(key_build)
     return key_string.replace(',', '')
 
+
 class Route(object):
     """
     The route object saves the moves and their relations to a state. 
