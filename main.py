@@ -10,7 +10,7 @@ def Average(lst):
 if __name__ == "__main__":
 
     # Initialize in_file
-    source_folder = "code/Data/"
+    source_folder = "/data"
     source_file = "RushHour6x6_1.csv"
     in_file = f"{source_folder}{source_file}"
 
