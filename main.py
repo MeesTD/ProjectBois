@@ -35,25 +35,6 @@ if __name__ == "__main__":
         #counter += 1
         #print("Won game.")
 
-
-    
-
-    # # ----------------Random algorithm with routes---------------------
-    # routerandom_game = rushhour.RushHour(in_file)
-    # archive_route = route.Route()
-    # while True:
-    #     if randomize.run(routerandom_game, board) and archive_route.get_state(routerandom_game.cars) == False:
-    #         archive_route.add_move()
-    #     if random_game.check_win() == True:
-    #         routerandom_game.print_game(board, routerandom_game)
-    #         print(archive_route.moves, "Random with route")
-    #         break     
-    #     if archive_route.moves > 20000:
-    #         routerandom_game.print_game(board, routerandom_game)
-    #         print(archive_route.moves, "Random with route")
-    #         break
-    #     archive_route.save_state(routerandom_game.cars)
-
     #astarr = astarreverse.Astar(in_file)
     #astarr.functionality()
 

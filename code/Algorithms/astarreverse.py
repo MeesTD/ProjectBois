@@ -3,7 +3,12 @@
 #
 # Zeno Degenkamp, Mats Pijning, Mees Drissen
 #
-# This file contains the astar revers algorithm
+# This file contains the astar revers algorithm. The algorithm starts at start state and at the 
+# final state until it finds eachother. The algorithm uses look ahead to find the move with the
+# best f-value. The F value is based on the amount of overlapping cars, more overlapping cars 
+# gives a higher f-value. The algorithm also stops searching for the solution when the red car 
+# has a free path to the exit, due to x_checker. Because a free path implies that the red car 
+# has a way to get to the exit. 
 ###################################################################################################
 import copy
 import queue
@@ -30,7 +35,7 @@ def make_children(current_state, all_options, final_state):
                 child_game.move(move[0], move[1], move[2])
                 all_children.append(child_game)
 
-         # Updates the f attribute of the children 
+        # Updates the f attribute of the children 
         calc_f_value(all_children, final_state)
 
         return all_children
@@ -84,16 +89,17 @@ class Astar(object):
         self.moves = 0
         self.lookahead_amount = 4
 
-        # Initialize the first state
+        # Initialize the first state and the final state
         self.open_list.append(copy.deepcopy(self.first_state))
         self.open_list_reversed.append(copy.deepcopy(self.final_state))
         
+   
     def get_best_child(self, current_state, goal_state):
         """
         Method gets the best child using the current state and the goal state and the look ahead method
         """
         
-        # Gets all the best children of the current state,  all_children = lookahead.lookahead(current_state, self.lookahead_amount, current_state_reversed)
+        # Gets all the best children of the current state
         all_children = lookahead.lookahead(current_state, self.lookahead_amount, goal_state)
 
         # Gets the child with the lowest f value
@@ -108,9 +114,10 @@ class Astar(object):
 
     def choose_child(self, all_children, closed_list):
         """
-        Method that chooses the best child with the lowest f value
+        Method that chooses the best child with the best f value
         """
-
+        
+        # Randomily chooses one of the child states as best child
         length = len(all_children)
         index = random.randrange(1, length)
         best_child = all_children[index]
@@ -144,12 +151,14 @@ class Astar(object):
         # Loops while length of open list is more than zero and counts less than 1500
         while len(self.open_list) > 0 and count < 1500:
             count += 1
-
-            # Gets the first states of both directions
+            
             current_index = 0
+            
+            # Gets the first states of both directions
             current_state = self.open_list.pop(current_index)
             current_state_reversed = self.open_list_reversed.pop(current_index)
             
+            # Checks if the red car is able to move to winning position
             if breadthfirst_prio.x_checker(current_state):
                 # Checks if the current state is winning state
                 if current_state.check_win():
@@ -172,12 +181,10 @@ class Astar(object):
             self.moves +=1 
             
             # Gets the best child for the normale route 
-            print("DIT IS DE NORMALE ROUTE")
             best_child = self.get_best_child(current_state, current_state_reversed)
             self.open_list.append(best_child)
             
             # Gets the best child for the reversed route
-            print("DIT IS DE REVERSED ROUTE")
             best_child_reversed = self.get_best_child(current_state_reversed, best_child)
             self.open_list_reversed.append(best_child_reversed)
             
