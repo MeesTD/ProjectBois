@@ -1,6 +1,5 @@
 import csv 
 import os
-import hashlib
 import copy
 from code.Objects import board, car, rushhour, route
 from code.Algorithms import randomize, randomize_with_routes, breadthfirst, breadthfirst_prio, astarrevers
@@ -21,7 +20,7 @@ if __name__ == "__main__":
 
     # Initialize counter, max & total to use when running algorithms:
     counter = 0
-    max_count = 50
+    max_count = 10
     total = []
 
 
@@ -29,7 +28,10 @@ if __name__ == "__main__":
     # # This algorithm may or may not solve the puzzle
     while counter < max_count:
         result = randomize.run(game)
-        total.append(result.archive.moves)
+        totalrow = []
+        totalrow.append(counter)
+        totalrow.append(result)
+        total.append(totalrow)
         counter += 1
         print("Won game.")
 
@@ -52,8 +54,8 @@ if __name__ == "__main__":
     #         break
     #     archive_route.save_state(routerandom_game.cars)
 
-    astarr = astarrevers.Astar(in_file)
-    astarr.functionality()
+    # astarr = astarrevers.Astar(in_file)
+    # astarr.functionality()
 
 
 
@@ -71,9 +73,8 @@ if __name__ == "__main__":
     #astar = breadthfirst.Breadthfirst(in_file)
     #breadth.run()
     
-    if counter < max_count:
-        total.append(len(astarr.moves))
-
-        print(Average(total))
-        print(min(total))
-        print(max(total))
+    with open("Random6x6_1", 'w', newline = '') as csvfile:
+            writer = csv.writer(csvfile)
+            writer.writerow(["Run number", "result"])
+            for row in total:
+                writer.writerow([row[0], row[1]])
