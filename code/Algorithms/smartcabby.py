@@ -42,6 +42,7 @@ def run(input_game):
                 archive.save_state(game)
     
     # Prints the amount of moves and the final board
-    print(game.archive.moves)
+    game.print_game(game.game, game)
+    print(game.archive.move_amount)
     
     return game

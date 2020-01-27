@@ -1,5 +1,5 @@
 ###################################################################################################
-# astar_lookahead.py
+# astarreverse.py
 #
 # Zeno Degenkamp, Mats Pijning, Mees Drissen
 #
@@ -54,7 +54,7 @@ def calc_f_value(all_children, final_state):
             # Counter that counts all the wrongly positioned cars
             wrong_cars = 0
             
-            # Loops through through all cars of the child
+            # Loops through all cars of the child
             for car in child.cars.values(): 
             
                 # Loops through all the cars of the final state
@@ -109,12 +109,14 @@ class Astar(object):
     
     
     def __init__(self, infile):
+        # Initialize lists and states that are necessary for the algorithm
         self.first_state = rushhour.RushHour(infile)
         self.final_state = randomize.run(self.first_state)
         self.open_list = []
         self.open_list_reversed = []
         self.closed_list = set()
-        self.infile = infile
+        
+        # Initialize the moves and lookahead integers to be used in the algorithm.
         self.moves = 0
         self.lookahead_amount = 4
 
@@ -129,7 +131,7 @@ class Astar(object):
         """
         
         # Gets all the best children of the current state
-        all_children = lookahead.lookahead(current_state, self.lookahead_amount, goal_state)
+        all_children = lookahead.lookahead(current_state, self.lookahead_amount)
 
         # Gets the child with the lowest f value
         best_child = choose_child(all_children, self.closed_list)

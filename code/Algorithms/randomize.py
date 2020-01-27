@@ -78,8 +78,9 @@ def run(game):
         # Make move with that car
         new_game.move(random_car.name , randomize_direction(random_car), randomize_steps(game.game.size, random_car))
     
-    # Prints the final board
+    # Prints the final board and moves
     new_game.print_game(new_game.game, new_game)
+    print(new_game.archive.move_amount)
     
     return new_game
     
