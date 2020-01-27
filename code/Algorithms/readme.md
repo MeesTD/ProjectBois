@@ -19,4 +19,4 @@ The breadthfirst algorithm explores all the the connected states layerwise start
 The breadthfirst algorithm with priority queue is an alternative of the breadthfirst. The breadthfirst algorithm with priority queue makes use of a priority queue. The priority queue is an queue orded with states based on a selected value. These values are calculated on an amount of moves given in the look ahead method. The total value is compared and the state with the best f-value is choosen. 
 
 ### A star reverse with look ahead
-The A star algorithm 
+The A star reverse algorithm starts used the random algorithm to find the final state. When the final state is found a star starts both at the begin state and at the final state.  NOG EXTRA uitleg
