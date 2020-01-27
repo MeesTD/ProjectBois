@@ -19,16 +19,16 @@ if __name__ == "__main__":
     board = board.Board(in_file)
     game = rushhour.RushHour(in_file)
 
+    print("Random \nRandom with routes \nBreadthfirst \nBreadthfirst with priority queue \nA* reverse \n")
+
+    user_algorithm = str(input("Which algorithm would you like to run? Type it as it's given in the line above. \n"))
+
     user_amount = int(input("How often would you like to run the algorithm?\n"))
 
     # Initialize counter, max & total to use when running algorithms:
     counter = 0
     max_count = user_amount
     total = []
-
-    print("Random \nRandom with routes \nBreadthfirst \nBreadthfirst with priority queue \nA* reverse \n")
-
-    user_algorithm = str(input("Which algorithm would you like to run? Type it as it's given in the line above. \n"))
 
     debug = input("Would you like to write the moves unto your HDD? Y/N")
 
