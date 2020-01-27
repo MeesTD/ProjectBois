@@ -73,8 +73,8 @@ if __name__ == "__main__":
      
     
     while counter < max_count:
-        astar = breadthfirst_prio.Astar(in_file)
-        result = astar.functionality()
+        
+        results = randomize_with_routes.run(game)
         totalrow = []
         totalrow.append(counter)
         totalrow.append(result.archive.move_amount)
@@ -82,7 +82,7 @@ if __name__ == "__main__":
         counter += 1
         print("Won game.")
     
-    with open("Breadthfirst_prio6x6_1.csv", 'w', newline = '') as csvfile:
+    with open("Random_with_routes6x6_1.csv", 'w', newline = '') as csvfile:
             writer = csv.writer(csvfile)
             writer.writerow(["Run number", "result"])
             for row in total:

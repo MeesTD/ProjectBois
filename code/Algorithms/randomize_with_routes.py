@@ -24,7 +24,7 @@ def run(input_game):
     game = input_game
 
     # Checks if game is won or if game is passed 100000 moves
-    while not game.check_win() and game.archive.moves < 100000:
+    while not game.check_win() and game.archive.move_amount < 100000:
         
         # Make a copy of the game to revert to if the move made already existed
         old_game = game
@@ -40,7 +40,7 @@ def run(input_game):
                 archive.save_state(game)
     
     # Prints the amount of moves and the final board
-    print(game.archive.moves)
+    #print(game.archive.moves)
     game.print_game(game.game, game)
     
     return game
