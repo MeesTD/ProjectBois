@@ -70,6 +70,33 @@ def calc_f_value(all_children, final_state):
             
             # Updates the f attribute of the child object           
             child.f = wrong_cars + child.archive.move_amount
+
+
+def choose_child(self, all_children, closed_list):
+    """
+    Method that chooses the best child with the best f value
+    """
+        
+    # Randomily chooses one of the child states as best child
+    length = len(all_children)
+    index = random.randrange(1, length)
+    best_child = all_children[index]
+
+    # Loops through all the children
+    for child in all_children:
+            
+        # Makes a string of the board of the child
+        str_child = make_key(child)
+            
+        # If child already exists in list pass.
+        if str_child in closed_list:
+            pass 
+                
+        # Else if the child f value is better set child to be that
+        elif child.f < best_child.f:
+            best_child = copy.deepcopy(child)
+            
+    return best_child
      
         
 class Astar(object):
@@ -103,39 +130,12 @@ class Astar(object):
         all_children = lookahead.lookahead(current_state, self.lookahead_amount, goal_state)
 
         # Gets the child with the lowest f value
-        best_child = self.choose_child(all_children, self.closed_list)
+        best_child = choose_child(all_children, self.closed_list)
             
         # Prints the best child
         best_child.print_game(best_child.game, best_child)
             
         # Appends the best child to open list
-        return best_child
-            
-
-    def choose_child(self, all_children, closed_list):
-        """
-        Method that chooses the best child with the best f value
-        """
-        
-        # Randomily chooses one of the child states as best child
-        length = len(all_children)
-        index = random.randrange(1, length)
-        best_child = all_children[index]
-
-        # Loops through all the children
-        for child in all_children:
-            
-            # Makes a string of the board of the child
-            str_child = make_key(child)
-            
-            # If child already exists in list pass.
-            if str_child in closed_list:
-                pass 
-                
-            # Else if the child f value is better set child to be that
-            elif child.f < best_child.f:
-                best_child = copy.deepcopy(child)
-            
         return best_child
         
 
@@ -162,7 +162,7 @@ class Astar(object):
             if breadthfirst_prio.x_checker(current_state):
                 # Checks if the current state is winning state
                 if current_state.check_win():
-                    print(current_state.archive.move_amount, "Red car won ( ͡ʘ ͜ʖ ͡ʘ)")
+                    print(current_state.archive.move_amount, "Red car has a free path to the exit ( ͡ʘ ͜ʖ ͡ʘ)")
                     break
             
             # Checks if the states overlap in state, in this case the winning state

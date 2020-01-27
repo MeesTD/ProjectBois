@@ -7,10 +7,11 @@
 ###################################################################################################
 import copy
 import queue
-from ..Objects import board, car, rushhour, route, lookahead
-from .breadthfirst import get_possibilities
-from ..Objects.route import make_key
 import random
+from .breadthfirst import get_possibilities
+from ..Algorithms import astarreverse
+from ..Objects import board, car, rushhour, route, lookahead
+from ..Objects.route import make_key
 
 
 def make_children(current_state, all_options):
@@ -65,24 +66,29 @@ def calc_f_value(all_children):
             # Updates the f attribute of the child
             child.f = blocking_cars + child.archive.move_amount
             
+            
 def x_checker(current_state):
     """
     Method checks if red car is able to move to win location, returns True if possible else False
     """
     
-    # Checks if the red car is able to move out the board
+    # Cets the x coords of the exit
     X_from_exit = current_state.game.size - int(current_state.red_car.xy[1][0])
-
+    
+    # If the red car is able to move to the exit, move and return True, else False
     if current_state.check_route("X", "R", X_from_exit):
         current_state.move("X", "R", X_from_exit)
         return True
         
     return False
+     
         
-class Astar(object):
+class Breadthfirst_prio(object):
     """
-    Class for the A* algorithm
+    Class breadthfirst with priority queue algorithm
     """
+    
+    
     def __init__(self, infile):
         self.first_state = rushhour.RushHour(infile)
         self.open_list = []
@@ -97,7 +103,7 @@ class Astar(object):
         
     def functionality(self):
         """
-        Method that contains all the logic for the A star algorithm
+        Method that contains all the logic for breadthfirst with priority queue algorithm
         """
 
         # Initializes the counts
@@ -115,7 +121,6 @@ class Astar(object):
             
             # Checks if red car is able to move to win location
             if x_checker(current_state):
-                #print("Win move is mogelijk")
                 pass
             
             # Checks if the current state is winning state
@@ -142,36 +147,8 @@ class Astar(object):
                     all_options.append(possibility)
 
             # Gets all the best children of the current state 
-            all_children = lookahead.lookahead(current_state, self.lookahead_amount, )
+            all_children = lookahead.lookahead(current_state, self.lookahead_amount)
 
             # Gets the child with the lowest f value and prints it and appends to open list
-            best_child = self.choose_child(all_children, self.closed_list)
-            #best_child.print_game(best_child.game, best_child)
+            best_child = astarreverse.choose_child(all_children, self.closed_list)
             self.open_list.append(best_child)
-
-
-    def choose_child(self, all_children, closed_list):
-        """
-        Method that chooses the best child with the lowest f value
-        """
-
-        length = len(all_children)
-        index = random.randrange(1, length)
-        best_child = all_children[index]
-
-        # Loops through all the children
-        for child in all_children:
-
-            str_child = make_key(child)
-            
-            # If child already exists in list pass.
-            if str_child in closed_list:
-                pass 
-                
-            # Else if the child f value is better set child to be that
-            elif child.f < best_child.f:
-                best_child = copy.deepcopy(child)
-            
-        
-        return best_child
-
