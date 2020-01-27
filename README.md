@@ -34,8 +34,9 @@ Deze lijst beschrijft alle belangrijke mappen en files van het project, en hun l
 
 * **/code**: bevat alle code van dit project.
 	* **/code/algorithms**: bevat de random, breadthfirst en astar algoritmes.
-	* **/code/data**: bevat alle cvs bestanden met auto's van alle borden.
 	* **/code/objects**: bevat de objecten board, car, lookahead, route en rushhour.
+* **/data**: bevat alle cvs bestanden met auto's van alle borden.
+	* **/data/outputs**: Deze folder bevat alle outputs van de algorithmes. 
 
 ### Auteurs
 - Mees van drissen
