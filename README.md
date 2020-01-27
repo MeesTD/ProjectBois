@@ -8,6 +8,9 @@ Rush Hous is een schuifpuzzel, waarbij het doel is om de rode auto naar de uitga
 
 ![Bord12x12](doc/3.jpg)
 
+
+![Bord6x6](doc/1.jpg "title-1") ![Bord9x9](doc/2.jpg "title-2") ![Bord12x12](doc/3.jpg "title-3")
+
 ## Aan de slag
 ## Browser Support
 
