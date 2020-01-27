@@ -1,11 +1,13 @@
 ###################################################################################################
-# randomize_with_routes.py
+# smartcabby.py
 #
 # Zeno Degenkamp, Mats pijning, Mees drissen
 #
-# This file contains all the logic for random algorithm with routes. It randomily chooses a car,
-# orientation, and amount of steps. And it tracks the past states and skips a move when 
-# it recreates a past state.
+# This file contains all the logic for the smart cabby algorithm. The smart cabby algorithm
+# is an alternative of the randomize algorithm. The smart cabby algorithm uses the same 
+# logic as the randomize, but the main difference is that the smart cabby uses an archive with 
+# all the past states it has been to. Smart caby is able to skip states it has already been to 
+# and therefore skip unnecessary moves. 
 ###################################################################################################
 import random
 import copy
@@ -40,7 +42,6 @@ def run(input_game):
                 archive.save_state(game)
     
     # Prints the amount of moves and the final board
-    #print(game.archive.moves)
-    #game.print_game(game.game, game)
+    print(game.archive.moves)
     
     return game

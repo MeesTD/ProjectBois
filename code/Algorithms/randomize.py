@@ -3,9 +3,13 @@
 #
 # Zeno Degenkamp, Mats pijning, Mees drissen
 #
-# This file contains all the logic for random algorithm. The random algorithm 
-# It randomily chooses a car,
-# orientation, and amount of steps. 
+# This file contains all the logic for random algorithm. The random algorithm randomily chooses 
+# a car of all the cars. It then checks the car's orientation, to discover the directions the car
+# can move to. The algorithm chooses randomily between left or right and up and down depending on 
+# the orientation. After that the algorithm calculates the maximal amount of steps the car can move
+# using the length of the board and the length of the car. After that the algorithm randomily 
+# chooses an amount of moves. The algorithm continues until the red car is on the winning location.
+# The algorithm also makes unsuccefull moves, we only take succesfull moves into account. 
 ###################################################################################################
 import random
 import copy
