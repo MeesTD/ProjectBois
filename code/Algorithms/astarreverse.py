@@ -178,12 +178,13 @@ class Astar(object):
             self.moves +=1 
             
             # Gets the best child for the normale route 
+            print("DIT IS DE NORMALE ROUTE")
             best_child = self.get_best_child(current_state, current_state_reversed)
-        
             self.open_list.append(best_child)
             
             # Gets the best child for the reversed route
-            best_child_reversed = get_best_child(current_state_reversed, best_child)
+            print("DIT IS DE REVERSED ROUTE")
+            best_child_reversed = self.get_best_child(current_state_reversed, best_child)
             self.open_list_reversed.append(best_child_reversed)
             
             

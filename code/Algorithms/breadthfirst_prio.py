@@ -64,8 +64,20 @@ def calc_f_value(all_children):
                     
             # Updates the f attribute of the child
             child.f = blocking_cars + child.archive.move_amount
-
-
+            
+def x_checker(current_state):
+    """
+    
+    """
+    
+    # Checks if the red car is able to move out the board
+    X_from_exit = current_state.game.size - int(current_state.red_car.xy[1][1] - 1)
+    if current_state.check_route("X", "R", X_from_exit):
+        current_state.move("X", "R", X_from_exit)
+        return True
+        
+    return False
+        
 class Astar(object):
     """
     Class for the A* algorithm
@@ -100,16 +112,15 @@ class Astar(object):
             current_index = 0
             current_state = self.open_list.pop(current_index)
             
-            # Checks if the red car is able to move out the board
-            X_from_exit = current_state.game.size - int(current_state.red_car.xy[1][1] - 1)
-            if current_state.check_route("X", "R", X_from_exit):
-                current_state.move("X", "R", X_from_exit)
-
-             # Checks if the current state is winning state
+            if x_checker(current_state):
+                print("Win move is mogelijk")
+            
+            # Checks if the current state is winning state
             if current_state.check_win():
                 print(current_state.archive.moves, "( ͡ʘ ͜ʖ ͡ʘ)")
                 break
-
+                    
+                   
             # Removes the state from the open list and adds to closed list
             str_current_state = make_key(current_state)
             self.closed_list.add(str_current_state)
