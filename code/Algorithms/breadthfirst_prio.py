@@ -1,5 +1,5 @@
 ###################################################################################################
-# astar_lookahead.py
+# breadfirst_prio.py
 #
 # Zeno Degenkamp, Mats Pijning, Mees Drissen
 #
