@@ -124,49 +124,41 @@ class Astar(object):
 
             all_options = []
             
-            # FUNCTIE VAN MAKEN??
-            
-            # Loops through all the cars of the current state
-            for car in current_state.cars.values():
-                
-                # Gets the possibilities per car 
-                possibility = get_possibilities(car, current_state)
-
-                # If the possiblities are not an empty list append to list for all options
-                if possibility != []:
-                    all_options.append(possibility)
-
-            # Gets all the best children of the current state 
-            all_children = lookahead.lookahead(current_state, self.lookahead_amount, current_state_reversed)
-
-            # Gets the child with the lowest f value
-            best_child = self.choose_child(all_children, self.closed_list)
-            
-            # Prints the best child
-            best_child.print_game(best_child.game, best_child)
-            
-            # Appends the best child to open list
+            # Gets the best child for the normale route 
+            best_child = get_best_child(current_state, current_state_reversed)
             self.open_list.append(best_child)
             
-            # ALL FUNCTIONS FOR REVERSED
-            for car in current_state_reversed.cars.values():
+            # Gets the best child for the reversed route
+            best_child_reversed = get_best_child(current_state_reversed, best_child)
+            self.open_list_reversed.append(best_child_reversed)
+            
+            
+    def get_best_child(self, current_state, goal_state):
+        """
+        Method gets the best child using the current state and the goal state and the look ahead method
+        """
+            
+        # Loops through all the cars of the current state
+        for car in current_state.cars.values():
                 
-                # Gets the possibilities per car 
-                possibility = get_possibilities(car, current_state_reversed)
-                
-                # If the possiblities are not an empty list append to list for all options
-                if possibility != []:
-                    all_options.append(possibility)
-                
-            # Gets all the best children of the current state 
-            all_children = lookahead.lookahead(current_state_reversed, self.lookahead_amount, best_child)
+            # Gets the possibilities per car 
+            possibility = get_possibilities(car, current_state)
 
-            # Gets the child with the lowest f value and appends to open list
-            best_child = self.choose_child(all_children, self.closed_list)
+            # If the possiblities are not an empty list append to list for all options
+            if possibility != []:
+                all_options.append(possibility)
+
+        # Gets all the best children of the current state,  all_children = lookahead.lookahead(current_state, self.lookahead_amount, current_state_reversed)
+        all_children = lookahead.lookahead(current_state, self.lookahead_amount, goal_state)
+
+        # Gets the child with the lowest f value
+        best_child = self.choose_child(all_children, self.closed_list)
             
-            best_child.print_game(best_child.game, best_child)
+        # Prints the best child
+        best_child.print_game(best_child.game, best_child)
             
-            self.open_list_reversed.append(best_child)
+        # Appends the best child to open list
+        return best_child
             
 
     def choose_child(self, all_children, closed_list):
