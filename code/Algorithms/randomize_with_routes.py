@@ -41,6 +41,6 @@ def run(input_game):
     
     # Prints the amount of moves and the final board
     #print(game.archive.moves)
-    game.print_game(game.game, game)
+    #game.print_game(game.game, game)
     
     return game

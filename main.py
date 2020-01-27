@@ -20,7 +20,7 @@ if __name__ == "__main__":
 
     # Initialize counter, max & total to use when running algorithms:
     counter = 0
-    max_count = 250
+    max_count = 1000
     total = []
 
 
@@ -73,8 +73,8 @@ if __name__ == "__main__":
      
     
     while counter < max_count:
-        
-        results = randomize_with_routes.run(game)
+        game_random = copy.deepcopy(game)
+        result = randomize_with_routes.run(game_random)
         totalrow = []
         totalrow.append(counter)
         totalrow.append(result.archive.move_amount)
