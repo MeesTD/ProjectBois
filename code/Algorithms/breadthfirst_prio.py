@@ -1,9 +1,14 @@
 ###################################################################################################
-# breadfirst_prio.py
+# breadthfirst_prio.py
 #
 # Zeno Degenkamp, Mats Pijning, Mees Drissen
 #
-# This file contains the breadthfirst with priority queue algorithm
+# This file contains the breadthfirst with priority queue algorithm. This algorithm creates children and selects a 
+# child with the lowest F-value. The F-value of a child is based upon the amount of moves already made (G) and the 
+# amount of vehicles that occupy space on the y-axis of the red car (H). G + H = F. The child with the lowest 
+# F-value is then added to the openlist, or the priority queue. These are the favourite children. The algorithm 
+# changes it's current state to the first entry in the openlist and the process begins again until the puzzle has
+# been completed.
 ###################################################################################################
 import copy
 import queue

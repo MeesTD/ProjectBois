@@ -1,13 +1,27 @@
+###################################################################################################
+# breadthfirst.py
+#
+# Zeno Degenkamp, Mats Pijning, Mees Drissen
+#
+# This is a breadthfirst algorithm. This means that it looks at all movements which can be made from
+# the starting position and making children per layer. The algorithm first completes one layer of 
+# children before continuing onto the next layer, which has more children. This algorithm will give
+# the fastest solution possible, but it is extremely memory intensive, due to the amount of states 
+# it has to account for. 
+###################################################################################################
 import copy
 from ..Objects import board, car, rushhour, route
+
 
 def get_possibilities(car, game):
         """
         Gets all the possible moves for the car.
         """
+        
         # Initialize the variables necessary for this method.
         possibilities = []
         max_steps = game.game.size - car.length + 1
+        
         # Check current car orientation.
         if car.get_orientation():
             directions = ['L', 'R']
@@ -25,13 +39,14 @@ def get_possibilities(car, game):
                 
         return possibilities
 
+
 class Breadthfirst(object):
     """
     THE Breadthfirst algorithm.
     """
 
+
     def __init__(self, infile):
-        # Initialize variables to be used in the game
         # We need a rushhour object to access its methods
         self.first_state = rushhour.RushHour(infile)
         self.states = []
@@ -39,12 +54,14 @@ class Breadthfirst(object):
         # Initialize the first state.
         self.states.append(copy.deepcopy(self.first_state))
     
+    
     def get_next_state(self):
         """
         Gets the next state from the list.
         """
 
         return self.states.pop(0)
+
 
     def build_children(self, possibilities, state):
         """
@@ -58,9 +75,17 @@ class Breadthfirst(object):
                 self.archive.save_state(new_game)
                 self.states.append(new_game)
 
+    
     def run(self):
+        """
+        Run runs all the functionalities and methods for the breadthfirst algorithm
+        """
+        
+        # Initializes variables
         self.archive = route.Route()
         i = 0
+        
+        # 
         while self.states:
             print(len(self.states))
             all_possibilities = []

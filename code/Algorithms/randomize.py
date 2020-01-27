@@ -3,7 +3,8 @@
 #
 # Zeno Degenkamp, Mats pijning, Mees drissen
 #
-# This file contains all the logic for random algorithm. It randomily chooses a car,
+# This file contains all the logic for random algorithm. The random algorithm 
+# It randomily chooses a car,
 # orientation, and amount of steps. 
 ###################################################################################################
 import random

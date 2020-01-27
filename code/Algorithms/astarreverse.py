@@ -3,12 +3,14 @@
 #
 # Zeno Degenkamp, Mats Pijning, Mees Drissen
 #
-# This file contains the astar revers algorithm. The algorithm starts at start state and at the 
-# final state until it finds eachother. The algorithm uses look ahead to find the move with the
-# best f-value. The F value is based on the amount of overlapping cars, more overlapping cars 
-# gives a higher f-value. The algorithm also stops searching for the solution when the red car 
-# has a free path to the exit, due to x_checker. Because a free path implies that the red car 
-# has a way to get to the exit. 
+# This file contains the astar reverse algorithm. This algorithm first completes a random algorithm
+# of the case, so that a solution exists within the memory. Once the random solution is generated,
+# the start-state and the solution will work towards each other based upon a lowest F-value. This
+# means both sides create children. The F-value is calculated using the factors G and H. 
+# G is the amount of moves that has been made. H is the similarity of the two boards. Once the two
+# boards match, the algorithm stops, because that means a path to the solution can be made. 
+# The algorithm also stops if the red car has a free path towards the end, because a solution is
+# then found. 
 ###################################################################################################
 import copy
 import queue
