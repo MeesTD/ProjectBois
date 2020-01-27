@@ -9,62 +9,97 @@ def Average(lst):
 
 if __name__ == "__main__":
 
+    user_file = str(input("Which puzzle would you like to run? Just type the boardsize and puzzle number IE: '6x6_1' \n"))
     # Initialize in_file
     source_folder = "data/"
-    source_file = "RushHour6x6_1.csv"
-    in_file = f"{source_folder}{source_file}"
+    source_file = "RushHour"
+    in_file = f"{source_folder}{source_file}{user_file}.csv"
 
     # Initialize both the board and the game based on the infile.
     board = board.Board(in_file)
     game = rushhour.RushHour(in_file)
 
+    user_amount = int(input("How often would you like to run the algorithm?\n"))
+
     # Initialize counter, max & total to use when running algorithms:
     counter = 0
-    max_count = 1000
+    max_count = user_amount
     total = []
 
+    print("Random \nRandom with routes \nBreadthfirst \nBreadthfirst with priority queue \nA* reverse \n")
 
-    # #-----------------Regular random algorithm-----------------------------
-    # # This algorithm may or may not solve the puzzle
-    #while counter < max_count:
-        #result = randomize.run(game)
-        #totalrow = []
-        #totalrow.append(counter)
-        #totalrow.append(result)
-        #total.append(totalrow)
-        #counter += 1
-        #print("Won game.")
+    user_algorithm = str(input("Which algorithm would you like to run? Type it as it's given in the line above. \n"))
 
-    #astarr = astarreverse.Astar(in_file)
-    #astarr.functionality()
+    debug = input("Would you like to write the moves unto your HDD? Y/N")
 
+    if debug == "Y":
+        game.set_debug()
+        game.set_output(str(input("What would you like the for the moves made output file  to be called?")))
+        total_name = str(input("What would you like the total moves outputfile to be called?"))
+        total_name += ".csv"
 
+    #-----------------Regular random algorithm-----------------------------
+    # This algorithm may or may not solve the puzzle
+    if user_algorithm == "Random":
+        while counter < max_count:
+            result = randomize.run(game)
+            totalrow = []
+            totalrow.append(counter)
+            totalrow.append(result)
+            total.append(totalrow)
+            counter += 1
+            print(f"Won game {counter}.")
 
-    # while counter < max_count:
-    #     game = rushhour.RushHour(in_file)
-    #     result = randomize_with_routes.run(game)
-    #     total.append(result.archive.moves)
-    #     counter += 1
-    #     result = None
-    #     game = None
-    #     print(counter)
+    
+    #-----------------Random with routes algorithm-----------------------------
+    if user_algorithm == "Random with routes":
+        while counter < max_count:
+            game_random = copy.deepcopy(game)
+            result = randomize_with_routes.run(game)
+            total.append(result.archive.moves)
+            counter += 1
+            result = None
+            game = None
+            print(f"Won game {counter}")
     
 
     # ------------------Breadthfirst algorithm with archive ------------
      
-    
-    while counter < max_count:
-        game_random = copy.deepcopy(game)
-        result = randomize_with_routes.run(game_random)
-        totalrow = []
-        totalrow.append(counter)
-        totalrow.append(result.archive.move_amount)
-        total.append(totalrow)
-        counter += 1
-        print("Won game.")
-    
-    with open("Random_with_routes6x6_1.csv", 'w', newline = '') as csvfile:
-            writer = csv.writer(csvfile)
-            writer.writerow(["Run number", "result"])
-            for row in total:
-                writer.writerow([row[0], row[1]])
+    if user_algorithm == "Breadthfirst":    
+        while counter < max_count:
+            result = copy.deepcopy(breadthfirst.Breadthfirst(in_file))
+            result = result.run()
+            totalrow = []
+            totalrow.append(counter)
+            totalrow.append(result.archive.move_amount)
+            total.append(totalrow)
+            counter += 1
+            print(f"Won game {counter}.")
+
+    # ------------------Breadthfirst algorithm with priority queue ------------
+
+    if user_algorithm == "Breadthfirst with priority queue":
+        while counter < max_count:
+            result = copy.deepcopy(breadthfirst_prio.Breadthfirst_prio(in_file))
+            result = result.functionality()
+            totalrow = []
+            totalrow.append(counter)
+            totalrow.append(result.archive.move_amount)
+            total.append(totalrow)
+            counter += 1
+            print(f"Won game {counter}.")
+            
+
+    # ------------------A* reverse ------------
+    if user_algorithm == "A* reverse":    
+        while counter < max_count:
+            astar = copy.deepcopy(astarreverse.Astar(in_file))
+            result = astar.functionality()
+
+    if debug == "Y":
+        # The writer used for the total moves of each iteration of an algorithm.
+        with open(total_name, 'w', newline = '') as csvfile:
+                writer = csv.writer(csvfile)
+                writer.writerow(["Run number", "result"])
+                for row in total:
+                    writer.writerow([row[0], row[1]])

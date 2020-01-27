@@ -74,7 +74,7 @@ def calc_f_value(all_children, final_state):
             child.f = wrong_cars + child.archive.move_amount
 
 
-def choose_child(self, all_children, closed_list):
+def choose_child(all_children, closed_list):
     """
     Method that chooses the best child with the best f value
     """
@@ -165,11 +165,13 @@ class Astar(object):
                 # Checks if the current state is winning state
                 if current_state.check_win():
                     print(current_state.archive.move_amount, "Red car has a free path to the exit ( ͡ʘ ͜ʖ ͡ʘ)")
+                    return current_state
                     break
             
             # Checks if the states overlap in state, in this case the winning state
             if make_key(current_state) == make_key(current_state_reversed):
                 self.moves = current_state.archive.move_amount + current_state_reversed.archive.move_amount
+                return current_state
                 print(self.moves, "State found won( ͡ʘ ͜ʖ ͡ʘ)")
                 break
               

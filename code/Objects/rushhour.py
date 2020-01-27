@@ -27,9 +27,17 @@ class RushHour():
         self.red_car = self.choose_car('X')
         self.archive = Route()
         self.f = 0
-        self.output_name = "6x6_3_output.csv"
+        self.output_name = None
+        self.debug = False
             
     
+    def set_debug(self):
+        self.debug = True
+
+    def set_output(self, input):
+        self.output_name = str(input)
+        self.output_name += ".csv"
+
     def load_cars(self, in_file):
         """
         This function will load the list of cars from the input file
@@ -174,7 +182,8 @@ class RushHour():
         
         # If the red car is on win location, write a CSV based on the archive.moves
         if red_car_coords[1] == self.game.get_winloc():
-            self.write_output(self.archive)
+            if self.debug == True:
+                self.write_output(self.archive)
             return True
         
         # If car is not on win location return False

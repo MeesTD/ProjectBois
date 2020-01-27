@@ -103,8 +103,7 @@ class Breadthfirst(object):
                 for possibility in all_possibilities:
                     self.build_children(possibility, new_state)
             else:
-                new_state.print_game(new_state.game, new_state)
-                print("Won!", len(self.states))
                 break
         new_state.print_game(new_state.game, new_state)
-        print(f"Finished with {new_state.archive.moves} moves")
+        print(f"Finished with {len(new_state.archive.moves)} moves")
+        return new_state
