@@ -88,65 +88,22 @@ class Astar(object):
         self.open_list.append(copy.deepcopy(self.first_state))
         self.open_list_reversed.append(copy.deepcopy(self.final_state))
         
-
-    def functionality(self):
-        """
-        Method that contains all the logic for the A star algorithm
-        """
-
-        # Initializes the counts 
-        count = 0
-        self.favourite_count = 0
-
-        # Loops while length of open list is more than zero and counts less than 1500
-        while len(self.open_list) > 0 and count < 1500:
-            count += 1
-
-            # Gets the first states of both directions
-            current_index = 0
-            current_state = self.open_list.pop(current_index)
-            current_state_reversed = self.open_list_reversed.pop(current_index)
-
-            # Checks if the states overlap in state, in this case the winning state
-            if make_key(current_state) == make_key(current_state_reversed):
-                self.moves = current_state.archive.move_amount + current_state_reversed.archive.move_amount
-                print(self.moves, "( ͡ʘ ͜ʖ ͡ʘ)")
-                break
-              
-            # Creates a str of the state and the reversed state
-            str_current_state = make_key(current_state)
-            str_current_state_reversed = make_key(current_state_reversed)
-            
-            self.closed_list.add(str_current_state)  
-
-            # Updates the moves variable
-            self.moves +=1 
-
-            all_options = []
-            
-            # Gets the best child for the normale route 
-            best_child = get_best_child(current_state, current_state_reversed)
-            self.open_list.append(best_child)
-            
-            # Gets the best child for the reversed route
-            best_child_reversed = get_best_child(current_state_reversed, best_child)
-            self.open_list_reversed.append(best_child_reversed)
-            
-            
     def get_best_child(self, current_state, goal_state):
         """
         Method gets the best child using the current state and the goal state and the look ahead method
         """
+        
+        #all_options = []
             
         # Loops through all the cars of the current state
-        for car in current_state.cars.values():
+        #for car in current_state.cars.values():
                 
             # Gets the possibilities per car 
-            possibility = get_possibilities(car, current_state)
+            #possibility = get_possibilities(car, current_state)
 
             # If the possiblities are not an empty list append to list for all options
-            if possibility != []:
-                all_options.append(possibility)
+            #if possibility != []:
+                #all_options.append(possibility)
 
         # Gets all the best children of the current state,  all_children = lookahead.lookahead(current_state, self.lookahead_amount, current_state_reversed)
         all_children = lookahead.lookahead(current_state, self.lookahead_amount, goal_state)
@@ -185,3 +142,48 @@ class Astar(object):
                 best_child = copy.deepcopy(child)
             
         return best_child
+        
+
+    def functionality(self):
+        """
+        Method that contains all the logic for the A star algorithm
+        """
+
+        # Initializes the counts 
+        count = 0
+        self.favourite_count = 0
+
+        # Loops while length of open list is more than zero and counts less than 1500
+        while len(self.open_list) > 0 and count < 1500:
+            count += 1
+
+            # Gets the first states of both directions
+            current_index = 0
+            current_state = self.open_list.pop(current_index)
+            current_state_reversed = self.open_list_reversed.pop(current_index)
+
+            # Checks if the states overlap in state, in this case the winning state
+            if make_key(current_state) == make_key(current_state_reversed):
+                self.moves = current_state.archive.move_amount + current_state_reversed.archive.move_amount
+                print(self.moves, "( ͡ʘ ͜ʖ ͡ʘ)")
+                break
+              
+            # Creates a str of the state and the reversed state
+            str_current_state = make_key(current_state)
+            str_current_state_reversed = make_key(current_state_reversed)
+            
+            self.closed_list.add(str_current_state)  
+
+            # Updates the moves variable
+            self.moves +=1 
+            
+            # Gets the best child for the normale route 
+            best_child = self.get_best_child(current_state, current_state_reversed)
+        
+            self.open_list.append(best_child)
+            
+            # Gets the best child for the reversed route
+            best_child_reversed = get_best_child(current_state_reversed, best_child)
+            self.open_list_reversed.append(best_child_reversed)
+            
+            

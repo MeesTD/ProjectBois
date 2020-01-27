@@ -7,7 +7,7 @@
 ###################################################################################################
 import copy
 from . import route, rushhour, car
-from ..Algorithms import breadthfirst, breadfirst_prio
+from ..Algorithms import breadthfirst, breadthfirst_prio, astarreverse
 
 
 def get_next_state(states):
@@ -18,7 +18,7 @@ def get_next_state(states):
         return states.pop()
 
 
-def lookahead (state, move_amount, final_state):
+def lookahead(state, move_amount, final_state):
     """
     This method looks ahead for move_amount times to return a move which will lead to 
     the move with the lowest f value
@@ -41,7 +41,7 @@ def lookahead (state, move_amount, final_state):
             for car in temp_state.cars.values():
                 possible_moves.append(breadthfirst.get_possibilities(car, temp_state))
 
-            new_states = make_children(temp_state, possible_moves, final_state)
+            new_states = breadthfirst_prio.make_children(temp_state, possible_moves)
 
             # Append the states 
             for state in new_states:

@@ -2,7 +2,7 @@ import csv
 import os
 import copy
 from code.Objects import board, car, rushhour, route
-from code.Algorithms import randomize, randomize_with_routes, breadthfirst, breadthfirst_prio, astarrevers
+from code.Algorithms import randomize, randomize_with_routes, breadthfirst, breadthfirst_prio, astarreverse
 
 def Average(lst):
     return sum(lst)/len(lst)
@@ -26,14 +26,14 @@ if __name__ == "__main__":
 
     # #-----------------Regular random algorithm-----------------------------
     # # This algorithm may or may not solve the puzzle
-    while counter < max_count:
-        result = randomize.run(game)
-        totalrow = []
-        totalrow.append(counter)
-        totalrow.append(result)
-        total.append(totalrow)
-        counter += 1
-        print("Won game.")
+    #while counter < max_count:
+        #result = randomize.run(game)
+        #totalrow = []
+        #totalrow.append(counter)
+        #totalrow.append(result)
+        #total.append(totalrow)
+        #counter += 1
+        #print("Won game.")
 
 
     
@@ -54,8 +54,8 @@ if __name__ == "__main__":
     #         break
     #     archive_route.save_state(routerandom_game.cars)
 
-    # astarr = astarrevers.Astar(in_file)
-    # astarr.functionality()
+    astarr = astarreverse.Astar(in_file)
+    astarr.functionality()
 
 
 

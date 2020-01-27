@@ -63,7 +63,7 @@ def calc_f_value(all_children):
                             blocking_cars += 1
                     
             # Updates the f attribute of the child
-            child.f = blocking_cars + child.archive.moves
+            child.f = blocking_cars + child.archive.move_amount
 
 
 class Astar(object):
