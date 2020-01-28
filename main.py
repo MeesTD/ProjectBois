@@ -9,7 +9,7 @@ def Average(lst):
 
 if __name__ == "__main__":
 
-    user_file = str(input("Which puzzle would you like to run? Just type the boardsize and puzzle number IE: '6x6_1' \n"))
+    user_file = str(input("Which puzzle would you like to run? Just type the boardsize and puzzle number IE: '6x6_1' (BE CAREFUL 12x12_7 MAY TAKE A LONG TIME TO RUN) \n> "))
     # Initialize in_file
     source_folder = "data/"
     source_file = "RushHour"
@@ -19,28 +19,30 @@ if __name__ == "__main__":
     board = board.Board(in_file)
     game = rushhour.RushHour(in_file)
 
-    print("Random \nRandom with routes \nBreadthfirst \nBreadthfirst with priority queue \nA* reverse \n")
+    print("Random (1) \nRandom with routes (2) \nBreadthfirst (3) \nBreadthfirst with priority queue (4) \nA* reverse (5) \n")
 
-    user_algorithm = str(input("Which algorithm would you like to run? Type it as it's given in the line above. \n"))
+    user_algorithm = 6
+    while user_algorithm > 5 or user_algorithm < 1:
+        user_algorithm = int(input("Which algorithm would you like to run? Type the number besides the algorithm name. \n> "))
 
-    user_amount = int(input("How often would you like to run the algorithm?\n"))
+    user_amount = int(input("How often would you like to run the algorithm? \n> "))
 
     # Initialize counter, max & total to use when running algorithms:
     counter = 0
     max_count = user_amount
     total = []
 
-    debug = input("Would you like to write the moves unto your HDD? Y/N")
+    debug = input("Would you like to write the moves unto your HDD? Y/N \n> ")
 
     if debug == "Y":
         game.set_debug()
-        game.set_output(str(input("What would you like the for the moves made output file  to be called?")))
-        total_name = str(input("What would you like the total moves outputfile to be called?"))
+        game.set_output(str(input("What would you like the output file which shows the moves made to be called? \n> ")))
+        total_name = str(input("What would you like the total moves outputfile to be called? \n> "))
         total_name += ".csv"
 
     #-----------------Regular random algorithm-----------------------------
     # This algorithm may or may not solve the puzzle
-    if user_algorithm == "Random":
+    if user_algorithm == 1:
         while counter < max_count:
             random_game = copy.deepcopy(game)
             result = randomize.run(random_game)
@@ -49,22 +51,22 @@ if __name__ == "__main__":
             totalrow.append(result)
             total.append(totalrow)
             counter += 1
-            print(f"Won game {counter}.")
+            print(f"Won game {counter} with {result.archive.move_amount} moves")
 
     
     #-----------------Random with routes algorithm-----------------------------
-    if user_algorithm == "Random with routes":
+    elif user_algorithm == 2:
         while counter < max_count:
             game_randomroutes = copy.deepcopy(game)
             result = smartcabby.run(game_randomroutes)
             total.append(result.archive.moves)
             counter += 1
-            print(f"Won game {counter}")
+            print(f"Won game {counter} with {result.archive.move_amount} moves")
     
 
     # ------------------Breadthfirst algorithm with archive ------------
      
-    if user_algorithm == "Breadthfirst":    
+    elif user_algorithm == 3:    
         while counter < max_count:
             result = copy.deepcopy(breadthfirst.Breadthfirst(in_file))
             result = result.run()
@@ -73,31 +75,41 @@ if __name__ == "__main__":
             totalrow.append(result.archive.move_amount)
             total.append(totalrow)
             counter += 1
-            print(f"Won game {counter}.")
+            print(f"Won game {counter} with {result.archive.move_amount} moves")
 
     # ------------------Breadthfirst algorithm with priority queue ------------
 
-    if user_algorithm == "Breadthfirst with priority queue":
+    elif user_algorithm == 4:
+        prio_game = breadthfirst_prio.Breadthfirst_prio(in_file)
+        prio_game.lookahead_amount = int(input("How far would you like the algorithm to look ahead? \n> "))
         while counter < max_count:
-            result = copy.deepcopy(breadthfirst_prio.Breadthfirst_prio(in_file))
+            result = copy.deepcopy(prio_game)
             result = result.functionality()
             totalrow = []
             totalrow.append(counter)
             totalrow.append(result.archive.move_amount)
             total.append(totalrow)
             counter += 1
-            print(f"Won game {counter}.")
+            result.print_game(result.game, result)
+            print(f"Won game {counter} with {result.archive.move_amount} moves")
             
 
     # ------------------A* reverse ------------
-    if user_algorithm == "A* reverse":    
+    elif user_algorithm == 5:    
         while counter < max_count:
             astar = copy.deepcopy(astarreverse.Astar(in_file))
             result = astar.functionality()
+            totalrow = []
+            totalrow.append(counter)
+            totalrow.append(result.archive.move_amount)
+            total.append(totalrow)
+            counter += 1
+            result.print_game(result.game, result)
+            print(f"Won game {counter} with {result.archive.move_amount} moves")
 
     if debug == "Y":
         # The writer used for the total moves of each iteration of an algorithm.
-        with open(total_name, 'w', newline = '') as csvfile:
+        with open("data/" + total_name, 'w', newline = '') as csvfile:
                 writer = csv.writer(csvfile)
                 writer.writerow(["Run number", "result"])
                 for row in total:

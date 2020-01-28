@@ -3,7 +3,8 @@
 #
 # Zeno Degenkamp, Mats Pijning, Mees Drissen
 #
-# This file contains the rushhour object
+# The Rushhour object holds all information which is relevant to the current game of Rushhour.
+# It keeps track of the Board and the cars. 
 ###################################################################################################
 from .car import Car
 from .board import Board
@@ -210,7 +211,7 @@ class RushHour():
                         print(">", end="")
                     #  Print the sides of the grid.
                     elif X == 0 or X == board.size + 1:
-                        print("|", end="")
+                        print(" | ", end="")
 
                     # Print the inside of the grid.
                     elif X < board.size + 1 or X < board.size + 1:

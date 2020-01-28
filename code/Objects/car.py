@@ -3,7 +3,9 @@
 #
 # Zeno Degenkamp, Mats Pijning, Mees Drissen
 #
-# This file contains the car object
+# The Car object is a representation of the cars on a game of Rushhour. 
+# It contains all information relevant to the cars, such as size, orientation, location 
+# and the type (is it a red car or not). All information is gathered from the csv file.
 ###################################################################################################
 class Car(object):
     """

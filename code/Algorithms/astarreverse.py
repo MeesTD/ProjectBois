@@ -164,9 +164,8 @@ class Astar(object):
             
             # Checks if the red car is able to move to winning position
             if breadthfirst_prio.x_checker(current_state):
-                # Checks if the current state is winning state
+                # Checks if the current state is a winning state
                 if current_state.check_win():
-                    print(current_state.archive.move_amount, "Red car has a free path to the exit ( ͡ʘ ͜ʖ ͡ʘ)")
                     return current_state
                     break
             
@@ -181,7 +180,8 @@ class Astar(object):
             str_current_state = make_key(current_state)
             str_current_state_reversed = make_key(current_state_reversed)
             
-            self.closed_list.add(str_current_state)  
+            self.closed_list.add(str_current_state)
+            self.closed_list.add(str_current_state_reversed)  
 
             # Updates the moves variable
             self.moves +=1 

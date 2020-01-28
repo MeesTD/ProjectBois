@@ -1,3 +1,8 @@
+"""
+This heuristic calculcates whether or not the path of the red car is free.
+It returns the amount of cars that are in the way of the red car.
+"""
+
 def calc_h(all_children):
     # initialize blocking cars value
     blocking_cars = 0

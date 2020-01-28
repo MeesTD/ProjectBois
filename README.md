@@ -9,7 +9,7 @@ Rush Hour is een schuifpuzzel, waarbij het doel is om de rode auto naar de uitga
 ### Vereisten
 
 Voor het project hebben wij de volgende programma's gebruikt.
-*[python](https://www.python.org/downloads/)<br>
+*[Python 3](https://www.python.org/downloads/)<br>
 
 ### Gebruik
 
@@ -20,6 +20,11 @@ Voor het project hebben wij de volgende programma's gebruikt.
 2. Kloon deze repository
 ```sh
 git clone https://github.com/MeesTD/ProjectBois
+```
+
+Het runnen van het programma werkt als volgt:
+```sh
+python3 main.py
 ```
 
 De verschillende algorimtes kunnen worden aangeroepen door main.py aan te roepen met het algoritme die u wenst te gebruiken.

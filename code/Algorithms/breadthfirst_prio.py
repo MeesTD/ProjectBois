@@ -102,8 +102,7 @@ class Breadthfirst_prio(object):
         self.closed_list = set()
         self.infile = infile
         self.moves = 0
-        look_ahead = input= "How many steps would you like to look ahead?"
-        self.lookahead_amount = int(look_ahead)
+        self.lookahead_amount = 0
 
 
         # Initializes the first state.

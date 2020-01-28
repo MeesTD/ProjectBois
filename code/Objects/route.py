@@ -3,7 +3,7 @@
 #
 # Zeno Degenkamp, Mats Pijning, Mees Drissen
 #
-# This file contains the route object
+# The Route object saves all the states which the current Rushhour game has entered in an archive. 
 ###################################################################################################
 from . import car, rushhour, board
 import copy

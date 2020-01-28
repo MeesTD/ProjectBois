@@ -3,7 +3,8 @@
 #
 # Zeno Degenkamp, Mats pijning, Mees drissen
 #
-# This file contains the methods for look ahead
+# The lookahead file contains two methods which allow an algorithm to 
+# create a limited depth-first search.
 ###################################################################################################
 import copy
 from . import route, rushhour, car

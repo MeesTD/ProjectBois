@@ -1,3 +1,8 @@
+"""
+This heuristic calculcates the distance of the red car from the exit.
+"""
+
+
 from ...Objects import rushhour
 
 def calc_h(self, all_children):

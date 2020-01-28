@@ -3,7 +3,8 @@
 #
 # Zeno Degenkamp, Mats Pijning, Mees Drissen
 #
-# This file contains the board object
+# The Board object will initiate a grid, which consists of a matrix, which consists of a list of lists.
+# Upon this grid the algorithms will make calculations and “move” cars.
 ###################################################################################################
 import os
 import math
