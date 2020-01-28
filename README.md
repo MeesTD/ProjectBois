@@ -28,7 +28,8 @@ python3 main.py
 ```
 
 De verschillende algorimtes kunnen worden aangeroepen door main.py aan te roepen met het algoritme die u wenst te gebruiken.
-We hebben een interface gemaakt die vraagt:
+We hebben een interface gemaakt die na het runnen van main.py vraagt:
+
 
 1. Welke puzzel je wilt runnen. (Typ de grootte en nummer van de puzzel hier in)
 2. Welke algoritme je wilt runnen. (Typ het over uit de lijst erboven)
