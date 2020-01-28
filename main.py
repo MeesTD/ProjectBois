@@ -2,7 +2,7 @@ import csv
 import os
 import copy
 from code.Objects import board, car, rushhour, route
-from code.Algorithms import randomize, randomize_with_routes, breadthfirst, breadthfirst_prio, astarreverse
+from code.Algorithms import randomize, smartcabby, breadthfirst, breadthfirst_prio, astarreverse
 
 def Average(lst):
     return sum(lst)/len(lst)
@@ -42,7 +42,8 @@ if __name__ == "__main__":
     # This algorithm may or may not solve the puzzle
     if user_algorithm == "Random":
         while counter < max_count:
-            result = randomize.run(game)
+            random_game = copy.deepcopy(game)
+            result = randomize.run(random_game)
             totalrow = []
             totalrow.append(counter)
             totalrow.append(result)
@@ -54,12 +55,10 @@ if __name__ == "__main__":
     #-----------------Random with routes algorithm-----------------------------
     if user_algorithm == "Random with routes":
         while counter < max_count:
-            game_random = copy.deepcopy(game)
-            result = randomize_with_routes.run(game)
+            game_randomroutes = copy.deepcopy(game)
+            result = smartcabby.run(game_randomroutes)
             total.append(result.archive.moves)
             counter += 1
-            result = None
-            game = None
             print(f"Won game {counter}")
     
 
