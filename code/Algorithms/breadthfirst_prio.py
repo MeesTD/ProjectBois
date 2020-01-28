@@ -102,7 +102,9 @@ class Breadthfirst_prio(object):
         self.closed_list = set()
         self.infile = infile
         self.moves = 0
-        self.lookahead_amount = int(input= "How many steps would you like to look ahead? ")
+        look_ahead = input= "How many steps would you like to look ahead?"
+        self.lookahead_amount = int(look_ahead)
+
 
         # Initializes the first state.
         self.open_list.append(copy.deepcopy(self.first_state))
