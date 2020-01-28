@@ -20,3 +20,4 @@ The breadthfirst with priority queue is an alternative to the regular breadthfir
 
 ### A* reverse with look ahead
 The A* reverse algorithm starts using the random algorithm to find the final state. When the final state is found A* starts at working in the begin- and final state. After this it starts to make moves in both states toward each other so that they meet in the middle. In doing so it uses the look ahead method in both the states. The f value is calculated based on the amount of cars that have overlapping positions with each other in both states. The algorithm also stops searching when the red car has a free path to the exit. The A* uses the x_checker method to check wether the red car has a way to get to the exit. If it does it moves it towards the exit.
+This will print both the current and final state states after each other.
