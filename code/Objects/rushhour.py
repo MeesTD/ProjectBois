@@ -211,7 +211,7 @@ class RushHour():
                         print(">", end="")
                     #  Print the sides of the grid.
                     elif X == 0 or X == board.size + 1:
-                        print(" | ", end="")
+                        print("|", end="")
 
                     # Print the inside of the grid.
                     elif X < board.size + 1 or X < board.size + 1:
