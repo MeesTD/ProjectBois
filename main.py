@@ -59,7 +59,10 @@ if __name__ == "__main__":
         while counter < max_count:
             game_randomroutes = copy.deepcopy(game)
             result = smartcabby.run(game_randomroutes)
-            total.append(result.archive.move_amount)
+            totalrow = []
+            totalrow.append(counter)
+            totalrow.append(result.archive.move_amount)
+            total.append(totalrow)
             counter += 1
             print(f"Won game {counter} with {result.archive.move_amount} moves")
     
