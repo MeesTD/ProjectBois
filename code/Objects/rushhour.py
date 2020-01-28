@@ -235,7 +235,7 @@ class RushHour():
         """
         This method writes a csv file which shows the moves made in the game
         """
-        with open(self.output_name, 'w', newline = '') as csvfile:
+        with open("data/Output/" + self.output_name, 'w', newline = '') as csvfile:
             writer = csv.writer(csvfile)
             writer.writerow(["car", "steps"])
             for row in archive.moves:

@@ -9,7 +9,7 @@ def Average(lst):
 
 if __name__ == "__main__":
 
-    user_file = str(input("Which puzzle would you like to run? Just type the boardsize and puzzle number IE: '6x6_1' (BE CAREFUL 12x12_7 MAY TAKE A LONG TIME TO RUN) \n> "))
+    user_file = str(input("Which puzzle would you like to run? Just type the boardsize and puzzle number likeso:'6x6_1', if you type it in another way it won't work. (BE CAREFUL 12x12_7 MAY TAKE A LONG TIME TO RUN) \n> "))
     # Initialize in_file
     source_folder = "data/"
     source_file = "RushHour"
@@ -48,7 +48,7 @@ if __name__ == "__main__":
             result = randomize.run(random_game)
             totalrow = []
             totalrow.append(counter)
-            totalrow.append(result)
+            totalrow.append(result.archive.move_amount)
             total.append(totalrow)
             counter += 1
             print(f"Won game {counter} with {result.archive.move_amount} moves")
@@ -59,7 +59,7 @@ if __name__ == "__main__":
         while counter < max_count:
             game_randomroutes = copy.deepcopy(game)
             result = smartcabby.run(game_randomroutes)
-            total.append(result.archive.moves)
+            total.append(result.archive.move_amount)
             counter += 1
             print(f"Won game {counter} with {result.archive.move_amount} moves")
     
@@ -109,7 +109,7 @@ if __name__ == "__main__":
 
     if debug == "Y":
         # The writer used for the total moves of each iteration of an algorithm.
-        with open("data/" + total_name, 'w', newline = '') as csvfile:
+        with open("data/Output/" + total_name, 'w', newline = '') as csvfile:
                 writer = csv.writer(csvfile)
                 writer.writerow(["Run number", "result"])
                 for row in total:
